@@ -1,7 +1,9 @@
-Package: NYT_cooking
+Package: better_name
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.1
 Authors@R:c( 
+    person("Zhen", "Nie", , "znie@smith.edu", role = c("aut"))
+    person("Alison", "Gu", , "agu@smith.edu", role = c("aut"))
     person("Teddy", "Martin", , "tkmartin@smith.edu", role = c("aut"))
     )
 Description: The description of a package usually spans multiple lines.
