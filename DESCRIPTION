@@ -2,7 +2,7 @@ Package: New York Times Cooking
 Title: Package
 Version: 0.0.0.1
 Authors@R:c( 
-    person("First", "Last", , "first.last@example.com", role = c("aut"))
+    person("Tint", "Tha Ra Wun", , "ttharawun@smith.edu", role = c("aut"))
     )
 Description: The description of a package usually spans multiple lines.
     The second and subsequent lines should be indented, usually with four
