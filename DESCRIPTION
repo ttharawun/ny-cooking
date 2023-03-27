@@ -1,5 +1,5 @@
-Package: mypackage
-Title: What the Package Does (One Line, Title Case)
+Package: New York Times Cooking 
+Title: Package
 Version: 0.0.0.1
 Authors@R:c( 
     person("First", "Last", , "first.last@example.com", role = c("aut"))
