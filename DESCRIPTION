@@ -1,7 +1,8 @@
-Package: better_name
-Title: What the Package Does (One Line, Title Case)
+Package: New York Times Cooking 
+Title: Package
 Version: 0.0.0.1
 Authors@R:c( 
+    person("Tint", "Tha Ra Wun", , "ttharawun@smith.edu", role = c("aut"))
     person("Zhen", "Nie", , "znie@smith.edu", role = c("aut"))
     person("Alison", "Gu", , "agu@smith.edu", role = c("aut"))
     person("Teddy", "Martin", , "tkmartin@smith.edu", role = c("aut"))
