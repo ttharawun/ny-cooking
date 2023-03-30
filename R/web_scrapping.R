@@ -113,8 +113,8 @@ for(i in 1:209){
   #scrape recipe link
   page_links <- page |>
     html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
-    html_attr('href') |>
-    Sys.sleep(10)
+    html_attr('href')
+  Sys.sleep(10)
 
   #save into vector
   partial_page_links <- c(partial_page_links, page_links)
