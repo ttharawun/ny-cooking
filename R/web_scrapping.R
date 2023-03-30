@@ -99,6 +99,8 @@ for(i in 1:209){
 #turn scraped partial links into working links
 links <- paste0("https://cooking.nytimes.com", partial_page_links)
 
+write.csv(links, file = "./data/recipes_links.csv", row.names = FALSE)
+
 #scrape details of the recipe for each link
 for(link in links){
   recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
