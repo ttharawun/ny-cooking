@@ -67,8 +67,6 @@ get_recipe<-function(url){
   return(recipes)
 }
 
-#need iteration for every page with recipes
-
 #scrape from NYT Cooking main page ----
 url <- "https://cooking.nytimes.com/search"
 page <- read_html(url)
@@ -78,14 +76,37 @@ partial_page_links <- page |>
   html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
   html_attr('href')
 
-#turn scraped partial links into working links
-links <- paste0("https://cooking.nytimes.com", partial_page_links)
-
 #create vector of possible columns
 columns = c("title", "tag", "serving", "ingredients", "rating", "time", "instructions", "link")
 
-#scrape details of the recipe for each link on the same page
-for(link in links){
-  recipes[link, columns] <- get_recipe(link)
-  #Sys.sleep(10)
+#create dummy vector
+partial_page_links <- c()
+
+#iteration for every page with recipes
+for(i in 1:209){
+  url <- paste0("https://cooking.nytimes.com/search?page=",i)
+  page <- read_html(url)
+
+  #scrape recipe link
+  page_links <- page |>
+    html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
+    html_attr('href')
+
+  #save into vector
+  partial_page_links <- c(partial_page_links, page_links)
 }
+
+#turn scraped partial links into working links
+links <- paste0("https://cooking.nytimes.com", partial_page_links)
+
+#scrape details of the recipe for each link
+for(link in links){
+  recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
+  Sys.sleep(10)
+}
+
+#change row names
+rownames(recipes) <- 1:length(links)
+
+#export results as csv
+write.csv(recipes, file = "./data/recipes.csv", row.names = FALSE)
