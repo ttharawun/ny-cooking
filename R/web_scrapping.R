@@ -104,6 +104,7 @@ links <- paste0("https://cooking.nytimes.com", partial_page_links)
 for(link in links){
   recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
   Sys.sleep(10)
+  print(link)
 }
 
 #change row names
