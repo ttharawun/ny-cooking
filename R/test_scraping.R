@@ -1,49 +1,53 @@
 ## Scrape from one specific page ----
+url <- "https://cooking.nytimes.com/recipes/1018333-chicken-liver-pate"
+page <- rvest::read_html(url)
+
 get_recipe<-function(url){
   #store url's info into page
   page <- rvest::read_html(url)
 
   #scrape recipe title
-  recipe_title <- page %>%
-    rvest::html_nodes(".header_recipe-name__RS14R") %>%
-    rvest::html_text()
-
-  #scrape recipe serving number
-  recipe_yield <- page %>%
-    rvest::html_nodes(".ingredients_recipeYield__Ljm9O") %>%
+  recipe_title <- page |>
+    rvest::html_nodes(".header_recipe-name__RS14R") |>
     rvest::html_text()
 
   #scrape the recipe tags
-  recipe_tags <- page %>%
-    rvest::html_nodes(".tags_tagListItem__EAD5e .link_default__XRQhR") %>%
+  recipe_tags <- page |>
+    rvest::html_nodes(".tags_tagListItem__EAD5e .link_default__XRQhR") |>
+    rvest::html_text()
+  recipe_tags <-paste0(recipe_tags, collapse = ",")
+
+  #scrape recipe serving number
+  recipe_yield <- page |>
+    rvest::html_nodes(".ingredients_recipeYield__Ljm9O") |>
     rvest::html_text()
   recipe_tags <-paste0(recipe_tags, collapse = ",")
 
   #scrape recipe ingredients
-  recipe_ingredients <- page %>%
-    rvest::html_nodes(".ingredient_ingredient__lq70t span , .ingredientgroup_name__IZMKB") %>%
+  recipe_ingredients <- page |>
+    rvest::html_nodes(".ingredient_ingredient__lq70t span , .ingredientgroup_name__IZMKB") |>
     rvest::html_text()
   recipe_ingredients <- paste0(recipe_ingredients, collapse = "\n")
 
   #scrape recipe instructions
-  recipe_instructions<- page %>%
-    rvest::html_nodes(".editorialtext_editorialText__TGWwj , .preparation_stepNumber__cPykF") %>%
+  recipe_instructions<- page |>
+    rvest::html_nodes(".editorialtext_editorialText__TGWwj , .preparation_stepNumber__cPykF") |>
     rvest::html_text()
   recipe_instructions <- paste0(recipe_instructions, collapse = "\n")
 
   #scrape recipe rating
-  recipe_rating <- page %>%
-    rvest::html_nodes(".stats_avgRating__DmjGC") %>%
+  recipe_rating <- page |>
+    rvest::html_nodes(".stats_avgRating__DmjGC") |>
     rvest::html_text()
 
   #scrape recipe preparation time
-  recipe_time <- page %>%
-    rvest::html_node(".interfacecaptiontext_interfaceCaptionText__ymi7T:nth-child(2)") %>%
+  recipe_time <- page |>
+    rvest::html_node(".interfacecaptiontext_interfaceCaptionText__ymi7T:nth-child(2)") |>
     rvest::html_text()
 
   #scrape recipe comments number
-  recipe_comment_num <- page %>%
-    rvest::html_node(".ratingssection_ratingsCount__q_DIQ") %>%
+  recipe_comment_num <- page |>
+    rvest::html_node(".ratingssection_ratingsCount__q_DIQ") |>
     rvest::html_text()
 
   #combine all previous info to a dataframe
@@ -85,7 +89,7 @@ for (i in 1:10) {
 
   links <- c(links, page_links)
 }
-
+s
 
 links <- page_links[1:3]
 
