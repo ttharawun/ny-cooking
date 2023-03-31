@@ -111,30 +111,42 @@ columns = c("title", "tag", "serving", "ingredients", "rating", "time", "instruc
 #create dummy vector
 partial_page_links <- c()
 
-#iteration for every page with recipes
-for(i in 1:209){
-  url <- paste0("https://cooking.nytimes.com/search?page=",i)
-  page <- read_html(url)
+tryCatch({
+  for(i in 1:209) #iteration for every page with recipes
+    {
+      url <- paste0("https://cooking.nytimes.com/search?page=",i) #get full url to search each page
+      page <- read_html(url) #input the url as html
 
-  #scrape recipe link
-  page_links <- page |>
-    html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
-    html_attr('href')
-  Sys.sleep(10)
+      #scrape recipe link
+      page_links <- page |>
+      html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
+      html_attr('href')
+      Sys.sleep(10) #pause between each scraping
 
-  #save into vector
-  partial_page_links <- c(partial_page_links, page_links)
-}
+      #save into vector
+      partial_page_links <- c(partial_page_links, page_links)
+    }
+  },
+  error = function(e){ #if an error occured
+    message(paste("There is an error for item", i, ":\n"), e) #error message
+  }
+)
 
 #turn scraped partial links into working links
 links <- paste0("https://cooking.nytimes.com", partial_page_links)
 
 #scrape details of the recipe for each link
-for(link in links){
-  recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
-  Sys.sleep(10)
-  print(link)
-}
+tryCatch({
+  for(link in links){ #iteration for each link
+    recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
+    Sys.sleep(10) #pause between each scraping
+    print(link) #print each link
+    }
+  },
+  error = function(e){ #if an error occurred
+    message(paste("There is an error after this link:", link, ":\n"), e) #error message
+  }
+)
 
 #change row names
 rownames(recipes) <- 1:length(links)
