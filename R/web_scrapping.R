@@ -1,5 +1,3 @@
-library(rvest) #load rvest
-
 #create dataframe to save results
 recipes <- data.frame()
 
@@ -12,7 +10,8 @@ get_recipe<-function(url){
       recipe_title <- page |>
         rvest::html_nodes(".header_recipe-name__RS14R") |>
         rvest::html_text()
-      if (is.null(recipe_title)){
+      recipe_title_length <- length(recipe_title)
+      if (is.null(recipe_title) | recipe_title_length == 0){
         recipe_title <- ""
       }
 
@@ -21,7 +20,8 @@ get_recipe<-function(url){
         rvest::html_nodes(".tags_tagListItem__EAD5e .link_default__XRQhR") |>
         rvest::html_text()
       recipe_tags <-paste0(recipe_tags, collapse = ",")
-      if (is.null(recipe_tags)){
+      recipe_tags_length <- length(recipe_tags)
+      if (is.null(recipe_tags) | recipe_tags_length == 0){
         recipe_tags <- ""
       }
 
@@ -29,7 +29,8 @@ get_recipe<-function(url){
       recipe_yield <- page |>
         rvest::html_nodes(".ingredients_recipeYield__Ljm9O") |>
         rvest::html_text()
-      if (is.null(recipe_yield)){
+      recipe_yield_length <- length(recipe_yield)
+      if (is.null(recipe_yield) | recipe_yield_length == 0){
         recipe_yield <- ""
       }
 
@@ -38,7 +39,8 @@ get_recipe<-function(url){
         rvest::html_nodes(".ingredient_ingredient__lq70t span , .ingredientgroup_name__IZMKB") |>
         rvest::html_text()
       recipe_ingredients <- paste0(recipe_ingredients, collapse = "\n")
-      if (is.null(recipe_ingredients)){
+      recipe_ingredients_length <- length(recipe_ingredients)
+      if (is.null(recipe_ingredients) | recipe_ingredients_length == 0){
         recipe_ingredients <- ""
       }
 
@@ -47,7 +49,8 @@ get_recipe<-function(url){
         rvest::html_nodes(".editorialtext_editorialText__TGWwj , .preparation_stepNumber__cPykF") |>
         rvest::html_text()
       recipe_instructions <- paste0(recipe_instructions, collapse = "\n")
-      if (is.null(recipe_instructions)){
+      recipe_instructions_length <- length(recipe_instructions)
+      if (is.null(recipe_instructions) | recipe_instructions_length == 0){
         recipe_instructions <- ""
       }
 
@@ -55,7 +58,8 @@ get_recipe<-function(url){
       recipe_rating <- page |>
         rvest::html_nodes(".stats_avgRating__DmjGC") |>
         rvest::html_text()
-      if (is.null(recipe_rating)){
+      recipe_rating_length <- length(recipe_rating)
+      if (is.null(recipe_rating) | recipe_rating_length == 0){
         recipe_rating <- ""
       }
 
@@ -63,7 +67,8 @@ get_recipe<-function(url){
       recipe_time <- page |>
         rvest::html_node(".interfacecaptiontext_interfaceCaptionText__ymi7T:nth-child(2)") |>
         rvest::html_text()
-      if (is.null(recipe_time)){
+      recipe_time_length <- length(recipe_time)
+      if (is.null(recipe_time) | recipe_time_length == 0){
         recipe_time <- ""
       }
 
@@ -71,7 +76,8 @@ get_recipe<-function(url){
       recipe_comment_num <- page |>
         rvest::html_node(".ratingssection_ratingsCount__q_DIQ") |>
         rvest::html_text()
-      if (is.null(recipe_comment_num)){
+      recipe_comment_num_length <- length(recipe_comment_num)
+      if (is.null(recipe_comment_num) | recipe_comment_num_length == 0){
         recipe_comment_num <- ""
       }
 
