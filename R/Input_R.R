@@ -15,5 +15,17 @@ ingredients <- tolower(ingredients)
 cat("You entered:", ingredient_1, ingredient_2, ingredient_3)
 
 
-NYT_selected
+for (ingredient in ingredients) {
+  i = i + 1
+  if (ingredient %in% example_ingredient_list) {
+    cat("\n", ingredient, "was found in list of ingredients.") }
+  else {
+    cat("\n", ingredient, "was NOT found in list of ingredients.")
+    user_choice <- readline(prompt = "An ingredient you entered was not found in the list of ingredients.\nWould you like to input a new ingredient? (Y/N)")
+    if (user_choice == "Y") {
+      ingredients[i] <- readline(prompt = "Enter the new ingredient.")
+      }
+    }
+}
+
 
