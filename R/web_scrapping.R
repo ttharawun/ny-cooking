@@ -137,14 +137,20 @@ links <- paste0("https://cooking.nytimes.com", partial_page_links)
 
 #scrape details of the recipe for each link
 tryCatch({
-  for(link in links){ #iteration for each link
+  for(i in 1:9099){ #iteration for each link
+    link <- links[i]
     recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
     Sys.sleep(10) #pause between each scraping
     print(link) #print each link
-    }
+    length_link <- length(link)
+  }
+  if (link == "" | is.null(link) | length(length_link) == 0) {
+    print("There is no link for positon ", i)
+    next
+  }
   },
   error = function(e){ #if an error occurred
-    message(paste("There is an error after this link:", link, ":\n"), e) #error message
+    message(paste("There is an error after this link: ", link, " at position ", i, ":\n"), e) #error message
   }
 )
 
