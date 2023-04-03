@@ -54,7 +54,7 @@ matching_alogrithm <- function(ingredient1, ingredient2, ingredient3) {
 }
 
 #test
-matching_alogrithm(ingredient1, ingredient2, ingredient3)
+match <- matching_alogrithm(ingredient1, ingredient2, ingredient3)
 
 
 
