@@ -4,7 +4,7 @@ ingredient1 <- "broth"
 ingredient2 <- "beef"
 ingredient3 <- "spice"
 
-matching_alogrithm <- function(ingredient1, ingredient2, ingredient3) {
+match_item <- function(ingredient1, ingredient2, ingredient3) {
   #change ingredients to lowercase
   data_selection <- data |>
     dplyr::mutate(tolower(ingredients))
@@ -54,7 +54,7 @@ matching_alogrithm <- function(ingredient1, ingredient2, ingredient3) {
 }
 
 #test
-match <- matching_alogrithm(ingredient1, ingredient2, ingredient3)
+match <- match_item(ingredient1, ingredient2, ingredient3)
 
 
 
