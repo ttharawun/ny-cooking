@@ -40,5 +40,8 @@ get_ingredients<-function(...){
   return(ingredients)
 }
 
+# testing
+test <- get_ingredients()
+test # will return a vector with the input ingredients
 
 
