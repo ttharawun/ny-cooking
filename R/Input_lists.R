@@ -7,7 +7,7 @@ recipes <- read.csv("data/NYTrecipe.csv")
 get_ingredients<-function(...){
   ingredients <- vector(mode = "character")
   user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y/N) ")
-  i == 0
+  i = 1
   while (user_initiation == "Y") {
     attempts <- 0
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
