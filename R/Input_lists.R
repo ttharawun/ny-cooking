@@ -36,7 +36,7 @@ get_ingredients<-function(...){
   ingredients <- tolower(ingredients)
 
   # Print out the entered ingredients
-  cat("You entered:", paste(ingredients, collapse = ", "))
+  cat("\n", "You entered:", paste(ingredients, collapse = ", "))
   return(ingredients)
 }
 
