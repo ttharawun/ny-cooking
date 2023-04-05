@@ -7,6 +7,7 @@
 #'
 #' @examples
 get_recipe<-function(url){
+
   #error message
   if(!grepl("nytcooking", url)){
     warning("this is not a link from NYT cooking. please double check the url")
