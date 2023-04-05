@@ -5,14 +5,16 @@ recipes <- read.csv("data/NYTrecipe.csv")
 # Ask for user input of three cooking ingredients
 # Error message and stop the code if the attempt is over 3 times
 get_ingredients<-function(...){
-  ingredients <- vector(mode = "character", length = 3)
-  for (i in 1:3) {
+  ingredients <- vector(mode = "character")
+  user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y/N) ")
+  i == 0
+  while (user_initiation == "Y") {
     attempts <- 0
-    repeat {
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
       if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
         cat("\n", ingredients[i], "was found in the list of ingredients.")
-        break
+        i = i + 1
+        user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y/N) ")
       } else {
         cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
         attempts <- attempts + 1
@@ -29,15 +31,16 @@ get_ingredients<-function(...){
           }
         }
       }
-    }
-  }
 
+
+  }
   # Convert ingredients to lowercase
   ingredients <- tolower(ingredients)
 
   # Print out the entered ingredients
   cat("\n", "You entered:", paste(ingredients, collapse = ", "))
   return(ingredients)
+
 }
 
 # testing
