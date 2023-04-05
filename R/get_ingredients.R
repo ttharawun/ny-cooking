@@ -5,11 +5,21 @@ get_ingredients<-function(...){
 
   for (i in 1:3) {
     attempts <- 0
-    # test if the input ingredient exists in all recipes
+
     repeat {
 
-      ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
+      # read user input
+      ingredient <- readline(prompt = paste0("Enter ingredient ", i, ": "))
 
+      # detect typo
+      if(!hunsbell::hunsbell_check(ingredient)){
+        warning("There is a typo in your input. Please restart the program.")
+        stop()
+      }
+      # store input into vector
+      ingredients[i] <- ingredient
+
+      # test if the input ingredient exists in all recipes
       if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
         cat("\n", ingredients[i], "was found in the list of ingredients.")
         break
@@ -21,6 +31,7 @@ get_ingredients<-function(...){
           warning("Exceeded maximum number of attempts. Please restart the program.")
           stop()
         }
+        # not working yet
         else {
           user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
           if (user_choice == "Y") {
