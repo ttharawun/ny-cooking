@@ -4,33 +4,33 @@ recipes <- read.csv("data/NYTrecipe.csv")
 
 # Ask for user input of three cooking ingredients
 # Error message and stop the code if the attempt is over 3 times
-get_ingredients<-function(...){
+get_ingredients <- function(...){
   ingredients <- vector(mode = "character")
-  user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y/N) ")
+  user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y to continue or enter anything else to leave)")
   i = 1
   while (user_initiation == "Y") {
     attempts <- 0
-      ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
-      if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
-        cat("\n", ingredients[i], "was found in the list of ingredients.")
-        i = i + 1
-        user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y/N) ")
+    ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
+    if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
+      cat("\n", ingredients[i], "was found in the list of ingredients.")
+      i = i + 1
+      user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y to continue or enter anything else to leave) ")
+    } else {
+      cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
+      attempts <- attempts + 1
+      if (attempts == 3) {
+        warning("Exceeded maximum number of attempts. Please restart the program.")
+        stop()
       } else {
-        cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
-        attempts <- attempts + 1
-        if (attempts == 3) {
-          warning("Exceeded maximum number of attempts. Please restart the program.")
-          stop()
+        user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y to continue or enter anything else to leave)")
+        if (user_choice == "Y") {
+          next
         } else {
-          user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
-          if (user_choice == "Y") {
-            next
-          } else {
-            warning("Please restart the program and enter valid ingredients.")
-            stop()
-          }
+          warning("Please restart the program and enter valid ingredients.")
+          stop()
         }
       }
+    }
 
 
   }
@@ -46,5 +46,3 @@ get_ingredients<-function(...){
 # testing
 test <- get_ingredients()
 test # will return a vector with the input ingredients
-
-
