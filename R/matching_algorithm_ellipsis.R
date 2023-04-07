@@ -2,7 +2,7 @@ data <- read.csv("data/NYTrecipe.csv")
 
 match_item <- function(...) {
   # Convert all input ingredients to lowercase
-  input_ingredients <- tolower(list(...))
+  input_ingredients <- tolower(unlist(list(...)))
 
   # Change ingredients in data to lowercase
   data_selection <- data |>
@@ -32,4 +32,7 @@ match_item <- function(...) {
 
   return(results)
 }
-test<-match_item("apple","egg","sugar","vanilla")
+
+#match_item()
+
+#test<-match_item("apple","egg","sugar","vanilla")
