@@ -1,7 +1,7 @@
 # Test ----
 library(readr)
 # test dataset
-NYT_recipes2 <- read_csv("~/Desktop/Spring 2023/SDS 270/NYT_Recipe_scrapy-master/NYT_recipes2.csv")
+#NYT_recipes2 <- read_csv("~/Desktop/Spring 2023/SDS 270/NYT_Recipe_scrapy-master/NYT_recipes2.csv")
 
 # test ingredients
 ingredients <- c("pork", "salt", "rice")

@@ -1,14 +1,13 @@
-recipes <- read.csv("data/NYTrecipe.csv")
-get_ingredients<-function(...){
 
+get_ingredients<-function(...){
+  recipes <- NewYorkTimesCooking::NYTrecipe
   #create ingredients vector
   ingredients <- vector(mode = "character")
   userchoice = "Y"
   i = 0
 
-  while (userchoice == "Y") {
-
-      i = i + 1
+      repeat{
+        i = i + 1
 
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
       if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
@@ -36,12 +35,13 @@ get_ingredients<-function(...){
   cat("You entered:", paste(ingredients, collapse = ", "))
 
   # call matching algorithm to get output
-  source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
-  recipes <- NewYorkTimematch_item(ingredients)
+  #source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
+  recipes <- NewYorkTimesCooking::match_item(ingredients)
   return (recipes)
 
 }
 
+
 #debugonce(get_ingredients)
 
-get_ingredients()
+#get_ingredients()

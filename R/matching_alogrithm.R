@@ -1,4 +1,4 @@
-data <- read.csv("data/NYTrecipe.csv")
+#data <- read.csv("data/NYTrecipe.csv")
 
 ingredient1 <- "salt"
 ingredient2 <- "beef"
@@ -55,7 +55,7 @@ match_item <- function(ingredient1, ingredient2, ingredient3) {
 }
 
 #test
-match <- match_item(ingredient1, ingredient2, ingredient3)
+#match <- match_item(ingredient1, ingredient2, ingredient3)
 
 
 

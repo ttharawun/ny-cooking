@@ -76,9 +76,10 @@ get_recipe<-function(url){
   #return recipes as output
   return(recipes)
 }
-\ # detect typo
-if(!hunsbell::hunsbell_check(ingredient)){
-  warning("There is a typo in your input. Please restart the program.")
-  stop()
-}
+
+# detect typo
+#if(!hunsbell::hunsbell_check(ingredient)){
+#
+#  stop("There is a typo in your input. Please restart the program.")
+#}
 # store input into vector
