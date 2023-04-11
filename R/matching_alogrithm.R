@@ -71,34 +71,41 @@ match_item <- function(ingredient1, ingredient2, ingredient3) {
       minute[i] = stringr::str_split(string = data_selection[i,15], pattern = "\\s") #split the string at the space between number and minute
       data_selection$num_minute[i] = minute[[i]][1] #replace i row, 1st column with first part of split string which is minute only
     }
-    #else if (data_selection$time_hour[i] == TRUE & data_selection$time_minute[i] == TRUE) {
-      #split[i] = stringr::str_split(string = data_selection[i,15], pattern = "(?<=hours|hour)(?=\\d)\\s") #split the string at the space between number and hour
-      #hour[i] = stringr::str_split(string = split[[i]][1], pattern = "\\s")
-      #data_selection$num_hour[i] = hour[[i]][1] #replace i row, 1st column with first part of split string which is hour only
-      #minute[i] = stringr::str_split(string = split[[i]][2], pattern = "\\s") #split the string at the space between number and minute
-      #data_selection$num_minute[i] = minute[[i]][1] #replace i row, 1st column with first part of split string which is minute only
-    #}
+    else if (data_selection$time_hour[i] == TRUE & data_selection$time_minute[i] == TRUE) {
+      split[i] = stringr::str_split(string = data_selection[i,15], pattern = "(?<=hours|hour)(?= \\d)\\s") #split the string at the space between number and hour
+      hour[i] = stringr::str_split(string = split[[i]][1], pattern = "\\s")
+      data_selection$num_hour[i] = hour[[i]][1] #replace i row, 1st column with first part of split string which is hour only
+      minute[i] = stringr::str_split(string = split[[i]][2], pattern = "\\s") #split the string at the space between number and minute
+      data_selection$num_minute[i] = minute[[i]][1] #replace i row, 1st column with first part of split string which is minute only
+    }
   }
 
-
-  #insert new column named time_minutes and time_notes
+  #insert new column named time_minutes
   data_selection <- data_selection |>
-    dplyr::mutate(time_minutes = "") |>
-    dplyr::mutate(time_notes = "")
+    dplyr::mutate(time_minutes = "")
 
+  #change variable from class(character) to (number)
+  data_selection$num_hour <- readr::parse_number(data_selection$num_hour)
+  data_selection$num_minute <- readr::parse_number(data_selection$num_minute)
+  data_selection$time_minutes <- readr::parse_number(data_selection$time_minutes)
 
+  data_selection$num_hour <- tidyr::replace_na(data_selection$num_hour, 0)
+  data_selection$num_minute <- tidyr::replace_na(data_selection$num_minute, 0)
 
+  data_selection$time_minute = data_selection$num_hour * 60 + data_selection$num_minute
+
+  data_selection$time_minute <- paste0(data_selection$time_minute, " minutes")
 
   #change user_number from class(character) to (number)
   data_selection$user_number <- readr::parse_number(data_selection$user_number)
 
   all_results <- data_selection |>
-    dplyr::filter(input1 == TRUE & input2 == TRUE & input3 == TRUE) |> #select cases where input1 is TRUE, input2 is TRUE, and input3 is TRUE
+    dplyr::filter(ingredient1 == TRUE & ingredient2 == TRUE & ingredient3 == TRUE) |> #select cases where input1 is TRUE, input2 is TRUE, and input3 is TRUE
     dplyr::arrange(desc(user_number)) #sort in descending order
 
   #select only necessary columns
   results <- all_results |>
-    dplyr::select(title, tag, serving, ingredients, rating, time, instructions, link)
+    dplyr::select(title, tag, serving, ingredients, rating, time, time_minute, instructions, link)
 
   #select top 10 results
   results <- head(results, 10)
