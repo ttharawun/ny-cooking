@@ -1,5 +1,5 @@
 # Import recipes
-# recipes <- read.csv("data/NYTrecipe.csv")
+ recipes <- NewYorkTimesCooking::NYTrecipe
 
 
 # Ask for user input of three cooking ingredients
