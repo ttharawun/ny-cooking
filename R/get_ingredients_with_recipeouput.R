@@ -1,4 +1,11 @@
-
+#' Title get ingredient with ouput
+#'
+#' @param ...
+#'
+#' @return a 10-row dataframe of recipes based on user input
+#' @export
+#'
+#' @examples get_ingredients()
 get_ingredients<-function(...){
   recipes <- NewYorkTimesCooking::NYTrecipe
   #create ingredients vector

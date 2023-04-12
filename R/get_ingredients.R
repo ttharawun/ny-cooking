@@ -1,5 +1,7 @@
 
 get_ingredients<-function(...){
+  #import recipe
+  recipes <- NewYorkTimesCooking::NYTrecipe
 
   #create ingredients vector
   ingredients <- vector(mode = "character", length = 3)
