@@ -7,6 +7,7 @@
 #'
 #' @examples
 get_recipe<-function(url){
+
   #error message
   if(!grepl("nytcooking", url)){
     warning("this is not a link from NYT cooking. please double check the url")
@@ -76,3 +77,9 @@ get_recipe<-function(url){
   return(recipes)
 }
 
+# detect typo
+#if(!hunsbell::hunsbell_check(ingredient)){
+#
+#  stop("There is a typo in your input. Please restart the program.")
+#}
+# store input into vector

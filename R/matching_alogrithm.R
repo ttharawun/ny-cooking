@@ -1,8 +1,9 @@
-data <- read.csv("data/NYTrecipe.csv")
+#data <- read.csv("data/NYTrecipe.csv")
 
-ingredient1 <- "broth"
+ingredient1 <- "salt"
 ingredient2 <- "beef"
 ingredient3 <- "spice"
+
 
 match_item <- function(ingredient1, ingredient2, ingredient3) {
   #change ingredients to lowercase
@@ -40,7 +41,7 @@ match_item <- function(ingredient1, ingredient2, ingredient3) {
   data_selection$user_number <- readr::parse_number(data_selection$user_number)
 
   all_results <- data_selection |>
-    dplyr::filter(input1 == TRUE & input2 == TRUE & input3 == TRUE) |> #select cases where input1 is TRUE, input2 is TRUE, and input3 is TRUE
+    dplyr::filter(ingredient1 == TRUE & ingredient2 == TRUE & ingredient3 == TRUE) |> #select cases where input1 is TRUE, input2 is TRUE, and input3 is TRUE
     dplyr::arrange(desc(user_number)) #sort in descending order
 
   #select only necessary columns
@@ -54,7 +55,7 @@ match_item <- function(ingredient1, ingredient2, ingredient3) {
 }
 
 #test
-match <- match_item(ingredient1, ingredient2, ingredient3)
+#match <- match_item(ingredient1, ingredient2, ingredient3)
 
 
 
