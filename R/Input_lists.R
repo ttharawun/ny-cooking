@@ -1,3 +1,4 @@
+
 # Import recipes
 # recipes <- read.csv("data/NYTrecipe.csv")
 
@@ -15,34 +16,20 @@ get_ingredients <- function(...){
       cat("\n", ingredients[i], "was found in the list of ingredients.")
       i = i + 1
       user_initiation <- readline(prompt = "Would you like to enter an ingredient? (Y to continue or enter anything else to leave) ")
-    } else {
-      cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
-      attempts <- attempts + 1
-      if (attempts == 3) {
-        warning("Exceeded maximum number of attempts. Please restart the program.")
-        stop()
-      } else {
-        user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y to continue or enter anything else to leave)")
-        if (user_choice == "Y") {
-          next
-        } else {
-          warning("Please restart the program and enter valid ingredients.")
-          stop()
-        }
-      }
-    }
 
+
+        user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y to continue or enter anything else to leave)")
 
   }
-  # Convert ingredients to lowercase
-  ingredients <- tolower(ingredients)
-
-  # Print out the entered ingredients
-  cat("\n", "You entered:", paste(ingredients, collapse = ", "))
-  return(ingredients)
-
 }
 
-# testing
-test <- get_ingredients()
-test # will return a vector with the input ingredients
+# Convert ingredients to lowercase
+ingredients <- tolower(ingredients)
+
+# Print out the entered ingredients
+cat("You entered:", paste(ingredients, collapse = ", "))
+
+
+
+
+
