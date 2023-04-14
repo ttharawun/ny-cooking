@@ -11,13 +11,13 @@ get_ingredients<-function(...){
       i = i + 1
 
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
-      if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
-        cat("\n", ingredients[i], "was found in the list of ingredients.")
-      }
-      else {
-        cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
-      }
 
+        if ((stringr::str_like(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
+          cat("\n", ingredients[i], "was found in the list of ingredients.")
+        }
+        else {
+          cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
+        }
 
       userchoice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
       if (userchoice == "Y") {next}
@@ -41,6 +41,9 @@ get_ingredients<-function(...){
   return (recipes)
 
 }
+
+
+get_ingredients("apple")
 
 #debugonce(get_ingredients)
 
