@@ -11,7 +11,7 @@ match_item <- function(...) {
   input_ingredients <- tolower(unlist(list(...)))
 
   # Change ingredients in data to lowercase
-  data_selection <- NewYorkTimesCooking::NYTrecipe |>
+  data_selection <- NYTrecipe |>
     dplyr::mutate(ingredients = tolower(ingredients))
 
   # Use str_detect to check if input matches ingredients

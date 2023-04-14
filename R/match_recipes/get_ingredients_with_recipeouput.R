@@ -7,7 +7,7 @@
 #'
 #' @examples get_ingredients()
 get_ingredients<-function(...){
-  recipes <- NewYorkTimesCooking::NYTrecipe
+  recipes <- NYTrecipe
   #create ingredients vector
   ingredients <- vector(mode = "character")
   userchoice = "Y"

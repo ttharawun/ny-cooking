@@ -1,5 +1,5 @@
 # Import recipes
- recipes <- NewYorkTimesCooking::NYTrecipe
+ recipes <- NYTrecipe
 
 
 # Ask for user input of three cooking ingredients

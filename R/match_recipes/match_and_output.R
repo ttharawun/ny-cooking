@@ -1,4 +1,4 @@
-data <- NewYorkTimesCooking::NYTrecipe
+data <- NYTrecipe
 
 ingredient1 <- "salt"
 ingredient2 <- "beef"
@@ -65,7 +65,7 @@ match
 
 get_ingredients<-function(...){
   #import recipes
-  recipes <- NewYorkTimesCooking::NYTrecipe
+  recipes <- NYTrecipe
 
   #create ingredients vector
   ingredients <- vector(mode = "character", length = 3)
