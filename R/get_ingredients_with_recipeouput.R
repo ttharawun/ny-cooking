@@ -49,6 +49,6 @@ get_ingredients<-function(...){
 }
 
 
-#debugonce(get_ingredients)
+debugonce(get_ingredients)
 
-#get_ingredients()
+get_ingredients()
