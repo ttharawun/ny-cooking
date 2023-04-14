@@ -21,13 +21,15 @@ get_ingredients <- function(...){
         user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y to continue or enter anything else to leave)")
 
   }
+  }
+
 }
 
 # Convert ingredients to lowercase
-ingredients <- tolower(ingredients)
+#ingredients <- tolower(ingredients)
 
 # Print out the entered ingredients
-cat("You entered:", paste(ingredients, collapse = ", "))
+#cat("You entered:", paste(ingredients, collapse = ", "))
 
 
 
