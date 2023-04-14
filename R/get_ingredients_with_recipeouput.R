@@ -14,7 +14,7 @@ get_ingredients<-function(...){
   i = 0
 
       repeat{
-        i = i + 1
+      i = i + 1
 
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
       if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
