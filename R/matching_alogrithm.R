@@ -15,27 +15,87 @@ match_item <- function(ingredient1, ingredient2, ingredient3) {
   ingredient3 <- tolower(ingredient3)
 
   #match user input ingredients with ingredients
-  ingredient1 <- stringr::str_detect(data$ingredients, ingredient1) #use str_detect to see if the input matches with ingredient list, if does return TRUE
-  ingredient2 <- stringr::str_detect(data$ingredients, ingredient2)
-  ingredient3 <- stringr::str_detect(data$ingredients, ingredient3)
-
-  #mutate results from str_detect to dataframe
-  data_selection <- data |>
-    dplyr::mutate(ingredient1 = ingredient1) |>
-    dplyr::mutate(ingredient2 = ingredient2) |>
-    dplyr::mutate(ingredient3 = ingredient3)
+  data_selection$ingredient1 <- stringr::str_detect(data$ingredients, ingredient1) #use str_detect to see if the input matches with ingredient list, if does return TRUE
+  data_selection$ingredient2 <- stringr::str_detect(data$ingredients, ingredient2)
+  data_selection$ingredient3 <- stringr::str_detect(data$ingredients, ingredient3)
 
   #create dummy vector
   rating <- c()
-
-  #insert new column named user_number
-  data_selection <- data_selection |>
-    dplyr::mutate(user_number = "")
+  time <- c()
 
   for (i in 1:nrow(data_selection)) {
     rating[i] = stringr::str_split(string = data_selection[i,5], pattern = "(?<=\\d)\\s") #split the string at the space between numbers and user
-    data_selection[i,12]= rating[[i]][1] #replace i row, 1st column with first part of split string which is date only
+    data_selection$user_number[i] = rating[[i]][1] #replace i row, 1st column with first part of split string which is date only
   }
+
+  data_selection$additional_time <- stringr::str_detect(data_selection$time, "plus")
+
+  data_selection <- data_selection |>
+    dplyr::mutate(time_only = "") |>
+    dplyr::mutate(time_note = "")
+
+  for (i in 1:nrow(data_selection)) {
+    if(data_selection$additional_time[i] == TRUE) {
+      time[i] = stringr::str_split(string = data_selection[i,6], pattern = "(?= plus)\\s") #split the string at the space between comma and plus
+      data_selection[i, 15] = time[[i]][1] #replace i row, 1st column with first part of split string which is date only
+      data_selection[i, 16] = time[[i]][2] #replace i row, 1st column with second part of split string which is notes only
+    }
+    else{
+      data_selection[i, 15] = data_selection$time[i]
+    }
+  }
+
+  data_selection[, 15] <- stringr::str_remove(data_selection[, 15], ",")
+  data_selection[, 15] <- stringr::str_remove(data_selection[, 15], "About ")
+
+  data_selection$time_only <- stringr::str_replace_all(data_selection$time_only, "¼", ".25")
+  data_selection$time_only <- stringr::str_replace_all(data_selection$time_only, "½", ".50")
+  data_selection$time_only <- stringr::str_replace_all(data_selection$time_only, "¾", ".75")
+  data_selection$time_hour <- stringr::str_detect(data_selection$time_only, "hour")
+  data_selection$time_minute <- stringr::str_detect(data_selection$time_only, "minute")
+
+  data_selection <- data_selection |>
+    dplyr::mutate(num_hour = "") |>
+    dplyr::mutate(num_minute = "")
+
+  #create dummy vector
+  hour <- c()
+  minute <- c()
+  split <- c()
+
+  for (i in 1:nrow(data_selection)) {
+    if(data_selection$time_hour[i] == TRUE & data_selection$time_minute[i] == FALSE) {
+      hour[i] = stringr::str_split(string = data_selection[i,15], pattern = "\\s") #split the string at the space between number and hour
+      data_selection$num_hour[i] = hour[[i]][1] #replace i row, 1st column with first part of split string which is hour only
+    }
+    else if (data_selection$time_hour[i] == FALSE & data_selection$time_minute[i] == TRUE) {
+      minute[i] = stringr::str_split(string = data_selection[i,15], pattern = "\\s") #split the string at the space between number and minute
+      data_selection$num_minute[i] = minute[[i]][1] #replace i row, 1st column with first part of split string which is minute only
+    }
+    else if (data_selection$time_hour[i] == TRUE & data_selection$time_minute[i] == TRUE) {
+      split[i] = stringr::str_split(string = data_selection[i,15], pattern = "(?<=hours|hour)(?= \\d)\\s") #split the string at the space between number and hour
+      hour[i] = stringr::str_split(string = split[[i]][1], pattern = "\\s")
+      data_selection$num_hour[i] = hour[[i]][1] #replace i row, 1st column with first part of split string which is hour only
+      minute[i] = stringr::str_split(string = split[[i]][2], pattern = "\\s") #split the string at the space between number and minute
+      data_selection$num_minute[i] = minute[[i]][1] #replace i row, 1st column with first part of split string which is minute only
+    }
+  }
+
+  #insert new column named time_minutes
+  data_selection <- data_selection |>
+    dplyr::mutate(time_minutes = "")
+
+  #change variable from class(character) to (number)
+  data_selection$num_hour <- readr::parse_number(data_selection$num_hour)
+  data_selection$num_minute <- readr::parse_number(data_selection$num_minute)
+  data_selection$time_minutes <- readr::parse_number(data_selection$time_minutes)
+
+  data_selection$num_hour <- tidyr::replace_na(data_selection$num_hour, 0)
+  data_selection$num_minute <- tidyr::replace_na(data_selection$num_minute, 0)
+
+  data_selection$time_minute = data_selection$num_hour * 60 + data_selection$num_minute
+
+  data_selection$time_minute <- paste0(data_selection$time_minute, " minutes")
 
   #change user_number from class(character) to (number)
   data_selection$user_number <- readr::parse_number(data_selection$user_number)
@@ -46,7 +106,7 @@ match_item <- function(ingredient1, ingredient2, ingredient3) {
 
   #select only necessary columns
   results <- all_results |>
-    dplyr::select(title, tag, serving, ingredients, rating, time, instructions, link)
+    dplyr::select(title, tag, serving, ingredients, rating, time, time_minute, instructions, link)
 
   #select top 10 results
   results <- head(results, 10)
