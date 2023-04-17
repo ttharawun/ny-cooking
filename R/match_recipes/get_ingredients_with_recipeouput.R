@@ -10,6 +10,7 @@ get_ingredients<-function(...){
   recipes <- NYTrecipe
   #create ingredients vector
   ingredients <- vector(mode = "character")
+  indeces <- c()
   userchoice = "Y"
   i = 0
 
@@ -17,13 +18,28 @@ get_ingredients<-function(...){
       i = i + 1
 
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
-      if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
-        cat("\n", ingredients[i], "was found in the list of ingredients.")
-      }
-      else {
-        cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
+      word <- paste0("\\b",ingredients[i], "\\b")
+
+      if(stringr::str_length(ingredients[i]) < 3){
+        print("Your word is too short. Please enter full word")
+        indeces[i] <- i
       }
 
+      if(stringr::str_length(ingredients[i]) >= 3) {
+        if(hunspell::hunspell_check(ingredients[i])) {
+          if (any(grepl(tolower(word), tolower(recipes$ingredients)))) {
+            cat("\n", ingredients[i], "was found in the list of ingredients.")
+          }
+          else {
+            cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
+            indeces[i] <- i
+          }
+        }
+        else {
+          cat("\n", ingredients[i], "is not correct. Please check your spelling.")
+          indeces[i] <- i
+        }
+      }
 
       userchoice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
       if (userchoice == "Y") {next}
@@ -33,10 +49,9 @@ get_ingredients<-function(...){
 
   }
 
-
-
   # Convert ingredients to lowercase
   ingredients <- tolower(ingredients)
+  ingredients <- ingredients[-indeces] #only include ingredients with correct spelling
 
   # Print out the entered ingredients
   cat("You entered:", paste(ingredients, collapse = ", "))
@@ -44,11 +59,11 @@ get_ingredients<-function(...){
   # call matching algorithm to get output
   #source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
   recipes <- NewYorkTimesCooking::match_item(ingredients)
-  return (recipes)
 
 }
 
 
 debugonce(get_ingredients)
 
-get_ingredients()
+
+#get_ingredients()
