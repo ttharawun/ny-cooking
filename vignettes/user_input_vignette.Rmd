@@ -1,0 +1,25 @@
+---
+title: "User Inputting Ingredients"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{user_input_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(nytcooking)
+```
+
+
+The overall goal of the package is to take ingredients inputted by the user and find suitable recipes based on those ingredients. In this vignette, I will offer a tutorial on how to input the ingredients that the recommended recipes will be based on.
+
+
+
