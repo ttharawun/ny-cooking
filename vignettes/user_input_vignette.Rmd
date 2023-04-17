@@ -21,5 +21,26 @@ knitr::opts_chunk$set(
 
 The overall goal of the package is to take ingredients inputted by the user and find suitable recipes based on those ingredients. In this vignette, I will offer a tutorial on how to input the ingredients that the recommended recipes will be based on.
 
+The user can start by calling the "get_ingredients()" function:
 
+```{r}
+my_ingredients <- get_ingredients()
+```
 
+The user will be prompted to enter an ingredient with the text: "Would you like to enter an ingredient? (Y/N)".
+
+The user must enter "Y" to continue. Any other input will result in [fix code.]
+
+After entering "Y", the user will be prompted to enter ingredient 1 with the text: "Enter ingredient 1: ".
+
+If the user inputs an ingredient that is found in the recipes data set, such as "ham" or "HAM" (the input is not case sensitive,) then the program will print a confirmation message: "HAM was found in the list of ingredients." The ingredient will also be stored in a vector. 
+
+If the user inputs an ingredient that is NOT found in the recipes data set, a message notifying the user will be printed: "sneaker was NOT found in the list of ingredients."
+
+The user can choose to input another ingredient by responding "Y" to "Would you like to enter an ingredient? (Y/N) " once again. If the first attempt at inputting an ingredient resulted in an ingredient that was not found, the user's inputted ingredient will replace the failed input. Otherwise, the program will prompt the user to input the next ingredient, such as ingredient 2, ingredient 3, and so on. The user can do this an unlimited number of times.
+
+Once the user is satisfied with all of their inputted ingredients, the user inputs "N" to the prompt "Would you like to enter an ingredient (Y/N) " and the program will print out a list of the ingredients that the user has successfully inputted. If the user inputted "ham" and then "eggs", the message will be:
+
+"You entered: ham, eggs"
+
+The program can then use these inputted ingredients to search for recipes with the same ingredients and recommend them to the user.
