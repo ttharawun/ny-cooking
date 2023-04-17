@@ -1,15 +1,21 @@
-recipes <- read.csv("data/NYTrecipe.csv")
+#' Title get ingredient with ouput
+#'
+#' @param ...
+#'
+#' @return a 10-row dataframe of recipes based on user input
+#' @export
+#'
+#' @examples get_ingredients()
 get_ingredients<-function(...){
-
+  recipes <- NewYorkTimesCooking::NYTrecipe
   #create ingredients vector
   ingredients <- vector(mode = "character")
   indeces <- c()
   userchoice = "Y"
   i = 0
 
-  while (userchoice == "Y") {
-
-      i = i + 1
+      repeat{
+        i = i + 1
 
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
       word <- paste0("\\b",ingredients[i], "\\b")
@@ -51,8 +57,14 @@ get_ingredients<-function(...){
   cat("You entered:", paste(ingredients, collapse = ", "))
 
   # call matching algorithm to get output
-  source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
-  recipes <- NewYorkTimematch_item(ingredients)
+  #source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
+  recipes <- NewYorkTimesCooking::match_item(ingredients)
   return (recipes)
 
 }
+
+
+#debugonce(get_ingredients)
+
+#get_ingredients()
+

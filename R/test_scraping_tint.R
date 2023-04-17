@@ -1,9 +1,11 @@
-## Scrape from one specific page ----
-url <- "https://cooking.nytimes.com/recipes/1018333-chicken-liver-pate"
-page <- rvest::read_html(url)
+library(rvest) #load rvest
 
+#create dataframe to save results
+recipes <- data.frame()
+
+#function to scrape the details of each recipe
 get_recipe<-function(url){
-  #store url's info into page
+  #store urls info into page
   page <- rvest::read_html(url)
 
   #scrape recipe title
@@ -21,7 +23,6 @@ get_recipe<-function(url){
   recipe_yield <- page |>
     rvest::html_nodes(".ingredients_recipeYield__Ljm9O") |>
     rvest::html_text()
-  recipe_tags <-paste0(recipe_tags, collapse = ",")
 
   #scrape recipe ingredients
   recipe_ingredients <- page |>
@@ -56,8 +57,8 @@ get_recipe<-function(url){
     tag = recipe_tags,
     serving = recipe_yield,
     ingredients = recipe_ingredients,
-    rating_num = recipe_comment_num,
     rating = recipe_rating,
+    comment = recipe_comment_num,
     time = recipe_time,
     instructions = recipe_instructions,
     link = url
@@ -67,36 +68,51 @@ get_recipe<-function(url){
   return(recipes)
 }
 
-#test get_recipe function with one url
-url <- "https://cooking.nytimes.com/recipes/1018333-chicken-liver-pate"
-page <- rvest::read_html(url)
-test_recipe = get_recipe("https://cooking.nytimes.com/recipes/1018333-chicken-liver-pate")
+#scrape from NYT Cooking main page ----
+url <- "https://cooking.nytimes.com/search"
+page <- read_html(url)
 
+#scrape recipe link
+partial_page_links <- page |>
+  html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
+  html_attr('href')
 
-## Explore iteration ----
+#create vector of possible columns
+columns = c("title", "tag", "serving", "ingredients", "rating", "comment", "time", "instructions", "link")
 
-#get first i pages of links for recipes tagged easy
-links<-c()
-for (i in 1:10) {
-  url <- paste0("https://cooking.nytimes.com/search?tags=easy&page=", i)
+#create dummy vector
+partial_page_links <- c()
+
+#iteration for every page with recipes
+for(i in 1:209){
+  url <- paste0("https://cooking.nytimes.com/search?page=",i)
   page <- read_html(url)
 
-  page_links <- page %>%
-    html_nodes("a") %>%
-    html_attr("href") %>%
-    grep("/recipes/", ., value=TRUE)
-  page_links <- paste0("https://cooking.nytimes.com", page_links)
+  #scrape recipe link
+  page_links <- page |>
+    html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
+    html_attr('href')
 
-  links <- c(links, page_links)
+  #save into vector
+  partial_page_links <- c(partial_page_links, page_links)
+
+  Sys.sleep(10)
+
 }
-s
 
-links <- page_links[1:3]
+#turn scraped partial links into working links
+links <- paste0("https://cooking.nytimes.com", partial_page_links)
 
-# scraping a few links
-for(link in links[1:2]){
-  test_recipe <- rbind(test_recipe, get_recipe(link))
+write.csv(links, file = "./data/recipes_links.csv", row.names = FALSE)
+
+#scrape details of the recipe for each link
+for(link in links){
+  recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
   Sys.sleep(10)
 }
 
+#change row names
+rownames(recipes) <- 1:length(links)
 
+#export results as csv
+#write.csv(recipes, file = "./data/recipes.csv", row.names = FALSE)

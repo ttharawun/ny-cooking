@@ -1,11 +1,17 @@
-data <- read.csv("data/NYTrecipe.csv")
-
+#' match_item
+#'
+#' @param ...
+#'
+#' @return 10 recipes based on the ingredient import
+#' @export
+#'
+#' @examples test<-match_item("apple","egg","sugar","vanilla")
 match_item <- function(...) {
   # Convert all input ingredients to lowercase
   input_ingredients <- tolower(unlist(list(...)))
 
   # Change ingredients in data to lowercase
-  data_selection <- data |>
+  data_selection <- NewYorkTimesCooking::NYTrecipe |>
     dplyr::mutate(ingredients = tolower(ingredients))
 
   # Use str_detect to check if input matches ingredients
@@ -33,6 +39,5 @@ match_item <- function(...) {
   return(results)
 }
 
-#match_item()
 
-#test<-match_item("apple","egg","sugar","vanilla")
+
