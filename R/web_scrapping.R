@@ -149,8 +149,8 @@ tryCatch({
     next
   }
   },
-  error = function(e){ #if an error occurred
-    message(paste("There is an error after this link: ", link, " at position ", i, ":\n"), e) #error message
+  warning = function(w){ #if an error occurred print warning statement
+    warnings(paste0("There is an error for this link: ", link, " at position ", i, ":\n")) #warning message
   }
 )
 
