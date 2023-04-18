@@ -12,7 +12,7 @@ get_recipe<-function(url){
         rvest::html_text()
       recipe_title_length <- length(recipe_title)
       if (is.null(recipe_title) | recipe_title_length == 0){
-        recipe_title <- ""
+        recipe_title <- NA
       }
 
       #scrape the recipe tags
@@ -22,7 +22,7 @@ get_recipe<-function(url){
       recipe_tags <-paste0(recipe_tags, collapse = ",")
       recipe_tags_length <- length(recipe_tags)
       if (is.null(recipe_tags) | recipe_tags_length == 0){
-        recipe_tags <- ""
+        recipe_tags <- NA
       }
 
       #scrape recipe serving number
@@ -31,7 +31,7 @@ get_recipe<-function(url){
         rvest::html_text()
       recipe_yield_length <- length(recipe_yield)
       if (is.null(recipe_yield) | recipe_yield_length == 0){
-        recipe_yield <- ""
+        recipe_yield <- NA
       }
 
       #scrape recipe ingredients
@@ -41,7 +41,7 @@ get_recipe<-function(url){
       recipe_ingredients <- paste0(recipe_ingredients, collapse = "\n")
       recipe_ingredients_length <- length(recipe_ingredients)
       if (is.null(recipe_ingredients) | recipe_ingredients_length == 0){
-        recipe_ingredients <- ""
+        recipe_ingredients <- NA
       }
 
       #scrape recipe instructions
@@ -51,7 +51,7 @@ get_recipe<-function(url){
       recipe_instructions <- paste0(recipe_instructions, collapse = "\n")
       recipe_instructions_length <- length(recipe_instructions)
       if (is.null(recipe_instructions) | recipe_instructions_length == 0){
-        recipe_instructions <- ""
+        recipe_instructions <- NA
       }
 
       #scrape recipe rating
@@ -60,7 +60,7 @@ get_recipe<-function(url){
         rvest::html_text()
       recipe_rating_length <- length(recipe_rating)
       if (is.null(recipe_rating) | recipe_rating_length == 0){
-        recipe_rating <- ""
+        recipe_rating <- NA
       }
 
       #scrape recipe preparation time
@@ -69,7 +69,7 @@ get_recipe<-function(url){
         rvest::html_text()
       recipe_time_length <- length(recipe_time)
       if (is.null(recipe_time) | recipe_time_length == 0){
-        recipe_time <- ""
+        recipe_time <- NA
       }
 
       #scrape recipe comments number
@@ -78,7 +78,7 @@ get_recipe<-function(url){
         rvest::html_text()
       recipe_comment_num_length <- length(recipe_comment_num)
       if (is.null(recipe_comment_num) | recipe_comment_num_length == 0){
-        recipe_comment_num <- ""
+        recipe_comment_num <- NA
       }
 
       #combine all previous info to a dataframe
@@ -95,68 +95,3 @@ get_recipe<-function(url){
     #return recipes as output
     return(recipes)
 }
-
-#scrape from NYT Cooking main page ----
-url <- "https://cooking.nytimes.com/search"
-page <- read_html(url)
-
-#scrape recipe link
-partial_page_links <- page |>
-  html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
-  html_attr('href')
-
-#create vector of possible columns
-columns = c("title", "tag", "serving", "ingredients", "rating", "time", "instructions", "link")
-
-#create dummy vector
-partial_page_links <- c()
-
-tryCatch({
-  for(i in 1:209) #iteration for every page with recipes
-    {
-      url <- paste0("https://cooking.nytimes.com/search?page=",i) #get full url to search each page
-      page <- read_html(url) #input the url as html
-
-      #scrape recipe link
-      page_links <- page |>
-      html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
-      html_attr('href')
-      Sys.sleep(10) #pause between each scraping
-
-      #save into vector
-      partial_page_links <- c(partial_page_links, page_links)
-    }
-  },
-  error = function(e){ #if an error occured
-    message(paste("There is an error for item", i, ":\n"), e) #error message
-  }
-)
-
-#turn scraped partial links into working links
-links <- paste0("https://cooking.nytimes.com", partial_page_links)
-
-#scrape details of the recipe for each link
-tryCatch({
-  for(i in 1:9099){ #iteration for each link
-    link <- links[i]
-    recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
-    Sys.sleep(10) #pause between each scraping
-    print(link) #print each link
-    length_link <- length(link)
-  }
-  if (link == "" | is.null(link) | length(length_link) == 0) {
-    print("There is no link for positon ", i)
-    next
-  }
-  },
-  error = function(e){ #if an error occurred print warning statement
-    warnings(paste0("There is an error for this link: ", link, " at position ", i, ":\n")) #warning message
-  }
-)
-
-#change row names
-rownames(recipes) <- 1:length(links)
-
-#export results as csv
-write.csv(recipes, file = "./data/recipes.csv", row.names = FALSE)
-
