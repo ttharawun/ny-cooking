@@ -1,18 +1,22 @@
-# Ask for user input of three cooking ingredients
-# Error message and stop the code if the attempt is over 3 times
-recipes <- NYTrecipe
-
-get_ingredients <- function(...){
+#' get ingredient list from user and return matched recipes as output
+#'
+#' @param ...
+#'
+#' @return a 10-row dataframe of recipes based on user input
+#' @export
+#'
+#' @examples get_ingredients()
+get_ingredients<-function(...){
+  #create ingredients vector
   ingredients <- vector(mode = "character")
   indeces <- c()
+  userchoice = "Y"
+  i = 0
 
-  user_choice <- readline(prompt = "Would you like to enter an ingredient? (Y to continue or enter anything else to leave)")
-  i = 1
+  repeat{
+    i = i + 1
 
-  while (user_choice == "Y") {
-    attempts <- 0
     ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
-
     word <- paste0("\\b",ingredients[i], "\\b")
 
     if(stringr::str_length(ingredients[i]) < 3){
@@ -38,15 +42,18 @@ get_ingredients <- function(...){
 
     userchoice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
     if (userchoice == "Y") {next}
-
-    # Convert ingredients to lowercase
-    ingredients <- tolower(ingredients)
-    ingredients <- ingredients[-indeces] #only include ingredients with correct spelling
-
-    # Print out the entered ingredients
-    cat("You entered:", paste(ingredients, collapse = ", "))
+    if (userchoice == "N") {next}
+    else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
   }
+
+  # Convert ingredients to lowercase
+  ingredients <- tolower(ingredients)
+  ingredients <- ingredients[-indeces] #only include ingredients with correct spelling
+
+  # Print out the entered ingredients
+  cat("You entered:", paste(ingredients, collapse = ", "))
+
+  # call matching algorithm to get output
+  #source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
+  recipes <- NewYorkTimesCooking::match_item(ingredients)
 }
-
-
-
