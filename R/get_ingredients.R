@@ -54,6 +54,5 @@ get_ingredients<-function(...){
   cat("You entered:", paste(ingredients, collapse = ", "))
 
   # call matching algorithm to get output
-  #source(here::here("R/matching_algorithm_ellipsis.R")) # change this later
   recipes <- NewYorkTimesCooking::match_item(ingredients)
 }
