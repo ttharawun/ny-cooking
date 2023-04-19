@@ -1,7 +1,11 @@
-#create dataframe to save results
-recipes <- data.frame()
-
-#function to scrape the details of each recipe
+#' scrape the details of each recipe from NYTCooking website
+#'
+#' @param url
+#'
+#' @return
+#' @export
+#'
+#' @examples get_recipe("https://cooking.nytimes.com/recipes/1022411-cucumber-avocado-salad")
 get_recipe<-function(url){
       #store urls info into page
       page <- rvest::read_html(url)
