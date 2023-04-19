@@ -1,4 +1,4 @@
-#' match_item
+#' match user input items with ingredients from recipes
 #'
 #' @param ...
 #'
