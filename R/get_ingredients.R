@@ -1,5 +1,6 @@
 # Ask for user input of three cooking ingredients
 # Error message and stop the code if the attempt is over 3 times
+recipes <- NYTrecipe
 
 get_ingredients <- function(...){
   ingredients <- vector(mode = "character")
