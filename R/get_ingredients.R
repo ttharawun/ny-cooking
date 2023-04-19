@@ -5,7 +5,7 @@
 #' @return a 10-row dataframe of recipes based on user input
 #' @export
 #'
-#' @examples get_ingredients()
+#' @examples
 get_ingredients<-function(...){
   #create ingredients vector
   ingredients <- vector(mode = "character")
