@@ -1,6 +1,6 @@
 #' scrape the details of each recipe from NYTCooking website
 #'
-#' @param url
+#' @param url a url linking to a recipe from Nytimes cooking website
 #'
 #' @return
 #' @export
