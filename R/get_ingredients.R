@@ -42,7 +42,7 @@ get_ingredients<-function(...){
 
     userchoice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
     if (userchoice == "Y") {next}
-    if (userchoice == "N") {next}
+    if (userchoice == "N") {break}
     else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
   }
 
