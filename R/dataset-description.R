@@ -16,4 +16,4 @@
 #'   \item{time_minute}{cooking time for the recipe (in minutes, does not incldue any notes)}
 #'   ...
 #' }
-#' @source <https://cooking.nytimes.com/search>
+#' @source <https://cooking.nytimes.com/>
