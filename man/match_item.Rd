@@ -7,7 +7,7 @@
 match_item(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{because the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names}
 }
 \value{
 10 recipes based on the ingredient import
