@@ -1,1 +1,4 @@
 exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "title")
+importFrom("stats", "time")
+importFrom("utils", "head")
