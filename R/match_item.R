@@ -1,11 +1,12 @@
 #' match user input items with ingredients from recipes
 #'
-#' @param ...
+#' @param ... because the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names
 #'
 #' @return 10 recipes based on the ingredient import
 #' @export
 #'
 #' @examples test<-match_item("apple","egg","sugar","vanilla")
+#' test2 <- match_item()
 match_item <- function(...) {
   # Convert all input ingredients to lowercase
   input_ingredients <- tolower(unlist(list(...)))

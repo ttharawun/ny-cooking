@@ -1,6 +1,6 @@
 #' get ingredient list from user and return matched recipes as output
 #'
-#' @param ...
+#' @param ... because the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names
 #'
 #' @return a 10-row dataframe of recipes based on user input
 #' @export
@@ -51,11 +51,6 @@ get_ingredients<-function(...){
       else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
     }
 
-    # Convert ingredients to lowercase
-    if(length(indeces) == 0){
-      ingredients <- tolower(ingredients)
-    }
-
     if(length(indeces) > 0){
       ingredients <- tolower(ingredients)
       ingredients <- ingredients[-indeces]
@@ -70,3 +65,4 @@ get_ingredients<-function(...){
 
   return(recipes)
 }
+

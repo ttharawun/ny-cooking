@@ -7,7 +7,7 @@
 get_recipe(url)
 }
 \arguments{
-\item{url}{}
+\item{url}{a url linking to a recipe from Nytimes cooking website}
 }
 \description{
 scrape the details of each recipe from NYTCooking website
