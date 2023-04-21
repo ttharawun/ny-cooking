@@ -1,6 +1,6 @@
-#' New York Times recipes data
+#' @title New York Times recipes data
 #'
-#' A dataset containing recipes of over 9,000 recipes from the New York Times Cooking website.
+#' @description A dataset containing recipes of over 9,000 recipes from the New York Times Cooking website.
 #' The variables are as follows:
 #'
 #' @format A data frame with 9,099 rows and 9 columns:
@@ -16,4 +16,8 @@
 #'   \item{time_minute}{cooking time for the recipe (in minutes, does not incldue any notes)}
 #'   ...
 #' }
+#'
+#' @eval c("@format", get_table_metadata("./data-raw/NYTrecipe_update.csv"))
+#'
 #' @source <https://cooking.nytimes.com/search>
+"NYTrecipe"
