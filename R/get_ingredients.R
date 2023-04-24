@@ -57,3 +57,5 @@ get_ingredients<-function(...){
   return(ingredients)
 
 }
+
+my_ingredients <- get_ingredients()
