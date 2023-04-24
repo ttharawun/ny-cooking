@@ -5,15 +5,14 @@
 #' @return a 10-row dataframe of recipes based on user input
 #' @export
 #'
-#' @examples As the function asks for user input, it usually does not require an argument. For an example, we can put in a string vector.
-#' get_ingredients(c("egg", "sugar", "milk))
+#' @examples get_ingredients(c("egg", "sugar", "milk))
 get_ingredients<-function(...){
   vector <- unlist(list(...))
 
   if(length(vector) == 0) {
     #create ingredients vector
     ingredients <- vector(mode = "character")
-    indeces <- c()
+    indeces <- vector()
     userchoice = "Y"
     i = 0
 
@@ -32,7 +31,6 @@ get_ingredients<-function(...){
         if(hunspell::hunspell_check(ingredients[i])) {
           if (any(grepl(tolower(word), tolower(NYTrecipe$ingredients)))) {
             cat("\n", ingredients[i], "was found in the list of ingredients.")
-            ingredients <- ingredients[i]
             indeces[i] <- 0
           }
           else {
@@ -52,9 +50,12 @@ get_ingredients<-function(...){
       else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
     }
 
-    if(length(indeces) > 0){
+    if(sum(indeces) > 0){
       ingredients <- tolower(ingredients)
       ingredients <- ingredients[-indeces]
+    }
+    else{
+      ingredients <- tolower(ingredients)
     }
 
     # Print out the entered ingredients
