@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples As the function asks for user input, it usually does not require an argument. For an example, we can put in a string vector.
-#' get_ingredients(c("egg", "sugar", "milk))
+#' get_ingredients(c("egg", "sugar","milk))
 get_ingredients<-function(...){
   vector <- unlist(list(...))
 
@@ -66,3 +66,5 @@ get_ingredients<-function(...){
 
   return(recipes)
 }
+
+
