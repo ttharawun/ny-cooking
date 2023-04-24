@@ -17,5 +17,4 @@ match user input items with ingredients from recipes
 }
 \examples{
 test<-match_item("apple","egg","sugar","vanilla")
-test2 <- match_item()
 }
