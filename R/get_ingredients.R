@@ -66,5 +66,3 @@ get_ingredients<-function(...){
 
   return(recipes)
 }
-
-
