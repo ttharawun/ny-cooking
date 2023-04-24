@@ -1,59 +1,63 @@
-#' get ingredient list from user and return matched recipes as output
-#'
-#' @param ... because the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names
-#'
-#' @return a 10-row dataframe of recipes based on user input
-#' @export
-#'
-#' @examples
 get_ingredients<-function(...){
+  vector <- unlist(list(...))
+  if(size(vector)!= 0){
+
+  }
+
   #create ingredients vector
-  ingredients <- vector(mode = "character")
-  indeces <- c()
-  userchoice = "Y"
-  i = 0
+  ingredients <- vector(mode = "character", length = 3)
 
-  repeat{
-    i = i + 1
+  for (i in 1:3) {
+    attempts <- 0
 
-    ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
-    word <- paste0("\\b",ingredients[i], "\\b")
+    repeat {
 
-    if(stringr::str_length(ingredients[i]) < 3){
-      print("Your word is too short. Please enter full word")
-      indeces[i] <- i
-    }
+      # read user input
+      ingredient <- readline(prompt = paste0("Enter ingredient ", i, ": "))
 
-    if(stringr::str_length(ingredients[i]) >= 3) {
-      if(hunspell::hunspell_check(ingredients[i])) {
-        if (any(grepl(tolower(word), tolower(NYTrecipe$ingredients)))) {
-          cat("\n", ingredients[i], "was found in the list of ingredients.")
-        }
-        else {
-          cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
-          indeces[i] <- i
-        }
+      # detect typo
+      if(!hunsbell::hunsbell_check(ingredient)){
+        warning("There is a typo in your input. Please restart the program.")
+        stop()
+      }
+      # store input into vector
+      ingredients[i] <- ingredient
+
+      # test if the input ingredient exists in all recipes
+      if (any(grepl(tolower(ingredients[i]), tolower(recipes$ingredients)))) {
+        cat("\n", ingredients[i], "was found in the list of ingredients.")
+        break
       }
       else {
-        cat("\n", ingredients[i], "is not correct. Please check your spelling.")
-        indeces[i] <- i
+        cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
+        attempts <- attempts + 1
+        if (attempts == 3) {
+          warning("Exceeded maximum number of attempts. Please restart the program.")
+          stop()
+        }
+        # not working yet
+        else {
+          user_choice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
+          if (user_choice == "Y") {
+            next
+          } else {
+            warning("Please restart the program and enter valid ingredients.")
+            stop()
+          }
+        }
       }
-    }
 
-    userchoice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
-    if (userchoice == "Y") {next}
-    if (userchoice == "N") {break}
-    else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
+
+    }
   }
 
   # Convert ingredients to lowercase
   ingredients <- tolower(ingredients)
-  ingredients <- ingredients[-indeces] #only include ingredients with correct spelling
 
   # Print out the entered ingredients
   cat("You entered:", paste(ingredients, collapse = ", "))
 
-  # call matching algorithm to get output
-  recipes <- NewYorkTimesCooking::match_item(ingredients)
-}
+  # return ingredients as a vector
+  return(ingredients)
 
+}
