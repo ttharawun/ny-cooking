@@ -7,7 +7,7 @@
 get_ingredients(...)
 }
 \arguments{
-\item{...}{because the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names}
+\item{...}{the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names}
 }
 \value{
 a 10-row dataframe of recipes based on user input

@@ -1,3 +1,11 @@
+#' get ingredient list from user and return matched recipes as output
+#'
+#' @param ... the function directly asks for user input, the argument is not necessary, but it can be a vector of character that contains ingredient names
+#'
+#' @return a 10-row dataframe of recipes based on user input
+#' @export
+#'
+#' @examples
 get_ingredients<-function(...){
   vector <- unlist(list(...))
 
