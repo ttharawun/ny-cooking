@@ -2,6 +2,8 @@
 
 usethis::use_data(./data-raw/NYTrecipe.csv, overwrite = TRUE)
 
+colnames(NYTrecipe)[1] <-("recipe_id")
+
 NYTrecipe$ingredients <- textclean::replace_non_ascii(NYTrecipe$ingredients, replacement = "", remove.nonconverted = TRUE)
 
 NYTrecipe$instructions <- textclean::replace_non_ascii(NYTrecipe$instructions, replacement = "", remove.nonconverted = TRUE)
