@@ -1,0 +1,80 @@
+---
+title: "New York Times Cooking"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{New York Times Cooking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(NewYorkTimesCooking)
+```
+
+Introduction
+---
+
+Welcome to the vignette of `NewYorkTimesCooking` package using recipes [New York Times Cooking](https://cooking.nytimes.com/). This package aims to provide recommendations of recipes based on the ingredients you have handy. 
+
+If you are a food lover, awesome!! You have come across this amazing resource for finding new and exciting recipes to try. With a vast collection of recipes, cooking tips, and instructional videos, the New York Cooking website has become a go-to for many food enthusiasts. And our package offers for FREE. 
+
+By using data extracted from the New York Times Cooking website, users can save time and effort in searching online for recipes that match their preferences. Once the user input ingredients they have, we will personalize the recommended recipes to match their preferences, making it easier for them to find recipes that they will enjoy. This personalized approach to recommending recipes can also help users explore new recipe and making cooking easier for all.
+
+Explore dataset
+---
+
+The __NYTrecipe__ dataset in this package was extracted from [New York Times Cooking](https://cooking.nytimes.com/). It contains 9,099 NYTCooking recipes and 9 aspects of the recipes. 
+
+variable | description
+---------| -------------
+title       | recipe title 🍜
+tags        | recipe tags 🏷 
+serving     | number of people that the recipe portion serves 👨‍👩‍👧‍👦
+ingredients | recipe ingredient details 🌽🍗🥕
+rating      | number of user ratings the recipe received on NYTCooking ⭐️
+time        | cooking time for the recipe (in hours and minutes with notes) ⏰📝
+instructions| instruction steps for the recipe 📝
+link        | link to the web version of the recipe (requires NYT subscription to access) 🕸
+time_minute | cooking time for the recipe (in minutes, does not incldue any notes) ⏰
+
+Example snapshot of the dataset (note. not all columns included)
+
+```{r, echo = FALSE, results='asis'}
+# summary of the dataset 
+summary <- NYTrecipe |>
+  dplyr::select(title, tag, serving, ingredients)
+summary <- head(summary, n =1)
+knitr::kable(summary)
+```
+
+Functions and Outputs
+---
+
+To find recipes, the user can start by calling the `get_ingredients()` function:
+
+```{r}
+NewYorkTimesCooking::get_ingredients("egg", "sugar", "milk")
+```
+
+The user will be prompted to enter ingredient 1 with the text: `Enter ingredient 1: `.
+
+If the user inputs an ingredient that is found in the recipes data set, such as `egg` or `EGG` (the input is not case sensitive) then the program will print a confirmation message: `egg was found in the list of ingredients.` The ingredient will also be stored in a vector. 
+
+If the user inputs an ingredient that is NOT found in the recipes data set, a message notifying the user will be printed: `sneaker was NOT found in the list of ingredients.` The failed input is not stored in the list of ingredients.
+
+Additionally, the program will also check spelling for words that are similar to a potential ingredient. For example, if the user inputs `sugarr` instead of "sugar", the program will catch the spelling error and print a message: `sugarr is not correct. Please check your spelling.` Once again, the failed input is not stored in the list of ingredients. 
+
+The user can then choose to input another ingredient by responding `Y` to `Would you like to enter an ingredient? (Y/N)` once again. The user can input an unlimited number of ingredients.
+
+Once the user is satisfied with all of their inputted ingredients, the user inputs `N` to the prompt `Would you like to enter an ingredient (Y/N)` and the program will print out a list of the ingredients that the user has successfully inputted. For example, if the user inputted `egg`, `sugar`, and `milk`, the message will be:
+
+`You entered: egg, sugar, milk`
+
+The program can then use these inputted ingredients to search for recipes with the same ingredients, sort out based on the number of user reviews on the New York Times Cooking website, and recommend top 10 recipes to the user.
