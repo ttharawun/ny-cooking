@@ -1,9 +1,10 @@
+Read the README.md before you begin. 
+
 # New York Times Cooking Recipes
 
 ## About
 
-This repository assesses the New York Times cooking recipes and help users to filter out the recipes that matches with their input ingredients.
-
+This repository assesses the New York Times Cooking website (https://cooking.nytimes.com/), search recipes and return the ones that matches with user's input ingredients.
 
 ## Contributors
 
@@ -16,14 +17,13 @@ This repository assesses the New York Times cooking recipes and help users to fi
 | [🖋](# "Content") [💻](# "Code")[🔣](# "Data") [🚇](# "Infrastructure") | [Zhen Nie](https://github.com/Znie98)      |
 | [🖋](# "Content") [💻](# "Code") [📆](# "Project Management") | [Teddy Martin](https://github.com/tkmartin25) |
 
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Dependencies
 
 To run all code in the qmd files throughout this repository the dependencies are listed within each file. The full list of dependencies are provided below:
 
-`here`, `rvest`, `devtools`, `rio`and `dplyr`.
+`dplyr`, `hunspell`, `readr`, `rvest`, and `stringr` 
 
 ## How to Access
 
@@ -31,30 +31,30 @@ This repository may be accessed through the package website.
 
 ## Definitions and Acronym
 
-#### NYTcooking
-NYTcooking is the acronym of [the New York Times Cooking](https://cooking.nytimes.com/). It is a website providing users with all kinds of rated recipes by the New York Times.
+#### NYCcooking
 
+NYTCooking is the acronym of [the New York Times Cooking](https://cooking.nytimes.com/). It is a cooking website from the New York Times that have over 10,000 recipes for cuisines all over the world. 
 
 ## Data Sources
+
 #### Sources
-Our source of recipes are from [the New York Times] (https://www.nytimes.com/subscription/cooking.html?campaignId=8F8HX&ds_c=71700000067126147&gclid=CjwKCAjwov6hBhBsEiwAvrvN6E9jfipI7h6OxEeZR4Au6IqlkOB1Vue6pQ6oDs5HxaLKFHPZ9jzsLhoCs-gQAvD_BwE&gclsrc=aw.ds) and was collected using `get_recipe.R` script in the `R` folder.
 
-The source was last accessed on April. 15 2023
+Our recipes are from [the New York Times] (https://cooking.nytimes.com/). They were collected by scraping the website using `get_recipe.R` script in the `R` folder.
 
+The source was last accessed on April 15, 2023
 
 #### Data cleaning
 
-We have the data collected from the New York Times cooking website and the cooking time column of the data was cleaned. 
+Data was cleaned and processed accordingly to suit our project's requirements.  
 
 ## Data Collection and Update Process
 
-The data process is not automated, however to access updated data one must simply run the scripts in the'get_recipe.R' script in the `R` folder.
+The data collection process is not automated (i.e., no new recipe is added even if it might be available on the source website). However, to access updated data, one must simply run the scripts in the `get_recipe.R` script in the `R` folder.
 
 ## Architecture and Where to Start
 
-We organized our repository with the name and categories of them. Starting with the `R` folder is recommended as this is where we organized our code for the package.
+To explore our functions, starting with the `R` folder is recommended. 
  
-
 ## License
 
 MIT License
@@ -85,4 +85,4 @@ Questions, bug reports, and feature requests can be submitted to this repo's [is
 
 ## Have Questions?
 
-If you have questions please submit them in this repo's [issue queue](https://github.com/Adv-R-Programming/final-project-nycooking/issues). 
+If you have questions please submit them in this repo's [issue queue](https://github.com/Adv-R-Programming/final-project-nycooking/issues) or contact Tint (ttharawun@smith.edu) 
