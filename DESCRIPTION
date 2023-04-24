@@ -1,8 +1,8 @@
-Package: NewYorkTimesCooking 
+Package: NewYorkTimesCooking
 Title: Package
 Version: 0.0.0.1
 Authors@R: c( 
-    person("Tint", "Tha Ra Wun", , "ttharawun@smith.edu", role = c("aut", "cre")),
+    person("Tint", "Tha Ra Wun", ,"ttharawun@smith.edu", role = c("aut", "cre")),
     person("Zhen", "Nie", , "znie@smith.edu", role = c("aut")),
     person("Alison", "Gu", , "agu@smith.edu", role = c("aut")),
     person("Teddy", "Martin", , "tkmartin@smith.edu", role = c("aut"))
@@ -10,7 +10,7 @@ Authors@R: c(
 Description: The description of a package usually spans multiple lines.
     The second and subsequent lines should be indented, usually with four
     spaces.
-License: use_mit_license()
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
