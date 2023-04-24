@@ -5,11 +5,11 @@
 #' @return a 10-row dataframe of recipes based on user input
 #' @export
 #'
-#' @examples get_ingredients(c("egg", "sugar", "milk))
+#' @examples get_ingredients("egg", "sugar", "milk")
 get_ingredients<-function(...){
-  vector <- unlist(list(...))
+  ingredients <- unlist(list(...))
 
-  if(length(vector) == 0) {
+  if(length(ingredients) == 0) {
     #create ingredients vector
     ingredients <- vector(mode = "character")
     indeces <- vector()
@@ -53,17 +53,26 @@ get_ingredients<-function(...){
     if(sum(indeces) > 0){
       ingredients <- tolower(ingredients)
       ingredients <- ingredients[-indeces]
+      if (length(ingredients) > 0){
+        # Print out the entered ingredients
+        cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+        cat("Please wait while the recipes are loading...")
+        # call matching algorithm to get output
+        recipes <- NewYorkTimesCooking::match_item(ingredients)
+        return(recipes)
+      }
+      else{
+        cat("Sorry there is no recipe that matches your input list.")
+      }
     }
     else{
       ingredients <- tolower(ingredients)
+      # Print out the entered ingredients
+      cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+      cat("Please wait while the recipes are loading...")
+      # call matching algorithm to get output
+      recipes <- NewYorkTimesCooking::match_item(ingredients)
+      return(recipes)
     }
-
-    # Print out the entered ingredients
-    cat("You entered:", paste(ingredients, collapse = ", "))
-
   }
-  # call matching algorithm to get output
-  recipes <- NewYorkTimesCooking::match_item(ingredients)
-
-  return(recipes)
 }
