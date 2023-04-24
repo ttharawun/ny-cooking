@@ -24,7 +24,7 @@ The overall goal of the package is to take ingredients inputted by the user and 
 The user can start by calling the "get_ingredients()" function:
 
 ```{r}
-my_ingredients <- get_ingredients()
+my_ingredients <- NewYorkTimesCooking::get_ingredients()
 ```
 
 The user will be prompted to enter an ingredient with the text: "Would you like to enter an ingredient? (Y/N)".
