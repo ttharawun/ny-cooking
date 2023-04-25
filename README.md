@@ -1,5 +1,3 @@
-Read the README.md before you begin. 
-
 # New York Times Cooking Recipes
 
 ## About
