@@ -8,23 +8,34 @@ ui <- fluidPage(
 
   # Sidebar panel for inputs ----
   sidebarPanel(
-    # Select the county
-    selectInput("County", label = "County",
-                choices = c("Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin",
-                            "Hampden", "Hampshire", "Middlesex", "Worcester", "Suffolk", "Norfolk",
-                            "Plymouth", "Nantucket"),
-                selected = NULL, multiple = FALSE)
+    # ingredients input
+    textInput("ingredients", "Please enter ingredients (seperate each using comma)"),
   ),
 
   # Main panel for displaying outputs ----
   mainPanel(
-    # Output: Formatted text for caption ----
-    h3(textOutput("caption")),
-
-    # Output: Plot of the requested data for price against time ----
-    plotOutput("PricePlot"),
-
-    # Output: Table for the datset ----
-    tableOutput("Housing_data")
+    # Output: list of ingredients
+    verbatimTextOutput("ingredients"),
+    # Output: Table for the recipe dataset ----
+    tableOutput("table")
   )
 )
+
+server <- function(input, output, session){
+  output$ingredients <- renderText({
+    ingredients <- tolower(input$ingredients)
+    # Print out the entered ingredients
+    cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+    cat("Please wait while the recipes are loading...")
+    return(ingredients)
+    })
+
+  output$table <- renderTable({
+    # call matching algorithm to get output
+    recipes <- NewYorkTimesCooking::match_item(ingredients)
+    return(recipes)
+  })
+}
+
+
+shinyApp(ui = ui, server = server)

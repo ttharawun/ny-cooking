@@ -75,4 +75,13 @@ get_ingredients<-function(...){
       return(recipes)
     }
   }
+  else{
+    ingredients <- tolower(ingredients)
+    # Print out the entered ingredients
+    cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+    cat("Please wait while the recipes are loading...")
+    # call matching algorithm to get output
+    recipes <- NewYorkTimesCooking::match_item(ingredients)
+    return(recipes)
+  }
 }
