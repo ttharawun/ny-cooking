@@ -1,4 +1,4 @@
-Read the README.md before you begin. 
+![hex-NYT Cooking](https://user-images.githubusercontent.com/62436248/234152754-277d9cbd-9ea4-4ce6-aa9d-f3d931805104.png)
 
 # New York Times Cooking Recipes
 
