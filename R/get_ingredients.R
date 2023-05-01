@@ -23,23 +23,23 @@ get_ingredients<-function(...){
       word <- paste0("\\b",ingredients[i], "\\b")
 
       if(stringr::str_length(ingredients[i]) < 3){
-        print("Your word is too short. Please enter full word")
+        message("Your word is too short. Please enter full word")
         indeces[i] <- i
       }
 
       if(stringr::str_length(ingredients[i]) >= 3) {
         if(hunspell::hunspell_check(ingredients[i])) {
           if (any(grepl(tolower(word), tolower(NYTrecipe$ingredients)))) {
-            cat("\n", ingredients[i], "was found in the list of ingredients.")
+            message("\n", ingredients[i], " was found in the list of ingredients.")
             indeces[i] <- 0
           }
           else {
-            cat("\n", ingredients[i], "was NOT found in the list of ingredients.")
+            message("\n", ingredients[i], " was NOT found in the list of ingredients.")
             indeces[i] <- i
           }
         }
         else {
-          cat("\n", ingredients[i], "is not correct. Please check your spelling.")
+          message("\n", ingredients[i], " is not correct. Please check your spelling.")
           indeces[i] <- i
         }
       }
@@ -55,21 +55,21 @@ get_ingredients<-function(...){
       ingredients <- ingredients[-indeces]
       if (length(ingredients) > 0){
         # Print out the entered ingredients
-        cat("You entered:", paste(ingredients, collapse = ", "),"\n")
-        cat("Please wait while the recipes are loading...")
+        message("You entered: ", paste(ingredients, collapse = ", "),"\n")
+        message("Please wait while the recipes are loading...")
         # call matching algorithm to get output
         recipes <- NewYorkTimesCooking::match_item(ingredients)
         return(recipes)
       }
       else{
-        cat("Sorry there is no recipe that matches your input list.")
+        warning("Sorry there is no recipe that matches your input list.")
       }
     }
     else{
       ingredients <- tolower(ingredients)
       # Print out the entered ingredients
-      cat("You entered:", paste(ingredients, collapse = ", "),"\n")
-      cat("Please wait while the recipes are loading...")
+      message("You entered: ", paste(ingredients, collapse = ", "),"\n")
+      message("Please wait while the recipes are loading...")
       # call matching algorithm to get output
       recipes <- NewYorkTimesCooking::match_item(ingredients)
       return(recipes)
@@ -78,8 +78,8 @@ get_ingredients<-function(...){
   else{
     ingredients <- tolower(ingredients)
     # Print out the entered ingredients
-    cat("You entered:", paste(ingredients, collapse = ", "),"\n")
-    cat("Please wait while the recipes are loading...")
+    message("You entered: ", paste(ingredients, collapse = ", "),"\n")
+    message("Please wait while the recipes are loading...")
     # call matching algorithm to get output
     recipes <- NewYorkTimesCooking::match_item(ingredients)
     return(recipes)
