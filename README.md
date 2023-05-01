@@ -32,7 +32,7 @@ This repository may be accessed through the package website.
 
 ## Definitions and Acronym
 
-#### NYCcooking
+#### NYTCcooking
 
 NYTCooking is the acronym of [the New York Times Cooking](https://cooking.nytimes.com/). It is a cooking website from the New York Times that have over 10,000 recipes for cuisines all over the world. 
 
