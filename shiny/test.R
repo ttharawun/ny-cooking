@@ -1,7 +1,9 @@
 library(shiny)
-library(tidyverse)
-library(shinybusy)
 library(DT)
+library(stringr)
+library(hunspell)
+library(NewYorkTimesCooking)
+library(purrr)
 
 css <- "
 .wrap {
@@ -28,7 +30,7 @@ ui <- fluidPage(
   mainPanel(
 
     # input field
-    textInput("input", label = "Please enter ingredients (seperate each using comma)"),
+    textInput("input", label = "Please enter ingredients (separate each using comma)"),
 
     # submit button
     actionButton("submit", label = "Submit"),
@@ -63,7 +65,6 @@ server <- function(input, output) {
 
     ingredients <- stringr::str_split(string = text_reactive(), pattern = ",")
     indeces <- vector()
-    ingredients <- tolower(unlist(ingredients))
 
     for (i in 1:length(ingredients)) {
       if(stringr::str_length(ingredients[i]) < 3){
@@ -71,7 +72,7 @@ server <- function(input, output) {
         indeces[i] <- i
       }
       if(stringr::str_length(ingredients[i]) >= 3) {
-        if(hunspell::hunspell_check(ingredients[i])) {
+        if(hunspell::hunspell_check(tolower(ingredients[i]))) {
           if (any(grepl(tolower(ingredients[i]), tolower(NYTrecipe$ingredients)))) {
             showNotification(paste0(ingredients[i], " was found in the list of ingredients."))
             indeces[i] <- 0
@@ -102,14 +103,14 @@ server <- function(input, output) {
               return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[8] +'</a>';
             }"))
         )
-        datatable(recipes,
+        datatable(as.data.frame(recipes),
                   options = list(
                     columnDefs = column_defs
                   ))
       }
-      # else{
-      #   showNotification("Sorry there is no recipe that matches your input list.")
-      # }
+      else{
+        showNotification("Sorry there is no recipe that matches your input list.")
+      }
     }
   })
 }
