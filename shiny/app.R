@@ -21,9 +21,15 @@ ui <- fluidPage(
 
   tags$head(
     tags$style(HTML(css))
-  ),
+    
+  # App title ----
+  titlePanel("New York Times Cooking Recipes"),
 
-  headerPanel("New York Times Cooking Recipes"),
+  # Sidebar panel for inputs ----
+  sidebarPanel(
+    # ingredients input
+    textInput("ingredients", "Please enter ingredients (seperate each using comma)"),
+  ),
 
   mainPanel(
 
@@ -78,5 +84,3 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
-
-

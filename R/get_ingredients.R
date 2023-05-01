@@ -5,15 +5,14 @@
 #' @return a 10-row dataframe of recipes based on user input
 #' @export
 #'
-#' @examples As the function asks for user input, it usually does not require an argument. For an example, we can put in a string vector.
-#' get_ingredients(c("egg", "sugar", "milk))
+#' @examples get_ingredients("egg", "sugar", "milk")
 get_ingredients<-function(...){
-  vector <- unlist(list(...))
+  ingredients <- unlist(list(...))
 
-  if(length(vector) == 0) {
+  if(length(ingredients) == 0) {
     #create ingredients vector
     ingredients <- vector(mode = "character")
-    indeces <- c()
+    indeces <- vector()
     userchoice = "Y"
     i = 0
 
@@ -32,7 +31,6 @@ get_ingredients<-function(...){
         if(hunspell::hunspell_check(ingredients[i])) {
           if (any(grepl(tolower(word), tolower(NYTrecipe$ingredients)))) {
             cat("\n", ingredients[i], "was found in the list of ingredients.")
-            ingredients <- ingredients[i]
             indeces[i] <- 0
           }
           else {
@@ -52,17 +50,38 @@ get_ingredients<-function(...){
       else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
     }
 
-    if(length(indeces) > 0){
+    if(sum(indeces) > 0){
       ingredients <- tolower(ingredients)
       ingredients <- ingredients[-indeces]
+      if (length(ingredients) > 0){
+        # Print out the entered ingredients
+        cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+        cat("Please wait while the recipes are loading...")
+        # call matching algorithm to get output
+        recipes <- NewYorkTimesCooking::match_item(ingredients)
+        return(recipes)
+      }
+      else{
+        cat("Sorry there is no recipe that matches your input list.")
+      }
     }
-
-    # Print out the entered ingredients
-    cat("You entered:", paste(ingredients, collapse = ", "))
-
+    else{
+      ingredients <- tolower(ingredients)
+      # Print out the entered ingredients
+      cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+      cat("Please wait while the recipes are loading...")
+      # call matching algorithm to get output
+      recipes <- NewYorkTimesCooking::match_item(ingredients)
+      return(recipes)
+    }
   }
-  # call matching algorithm to get output
-  recipes <- NewYorkTimesCooking::match_item(ingredients)
-
-  return(recipes)
+  else{
+    ingredients <- tolower(ingredients)
+    # Print out the entered ingredients
+    cat("You entered:", paste(ingredients, collapse = ", "),"\n")
+    cat("Please wait while the recipes are loading...")
+    # call matching algorithm to get output
+    recipes <- NewYorkTimesCooking::match_item(ingredients)
+    return(recipes)
+  }
 }
