@@ -21,7 +21,8 @@ ui <- fluidPage(
 
   tags$head(
     tags$style(HTML(css))
-    
+  ),
+
   # App title ----
   titlePanel("New York Times Cooking Recipes"),
 
@@ -29,15 +30,12 @@ ui <- fluidPage(
   sidebarPanel(
     # ingredients input
     textInput("ingredients", "Please enter ingredients (seperate each using comma)"),
-  ),
-
-  mainPanel(
-
-    # input field
-    textInput("input", label = "Please enter ingredients (seperate each using comma)"),
 
     # submit button
     actionButton("submit", label = "Submit"),
+  ),
+
+  mainPanel(
 
     # Somewhere in UI
     add_busy_gif(src = "https://jeroen.github.io/images/banana.gif", height = 70, width = 70),

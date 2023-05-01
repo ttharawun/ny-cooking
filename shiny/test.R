@@ -2,6 +2,7 @@ library(shiny)
 library(DT)
 library(stringr)
 library(hunspell)
+library(shinybusy)
 library(NewYorkTimesCooking)
 library(purrr)
 
@@ -64,6 +65,7 @@ server <- function(input, output) {
     req(input$submit)
 
     ingredients <- stringr::str_split(string = text_reactive(), pattern = ",")
+    ingredients <- unlist(ingredients)
     indeces <- vector()
 
     for (i in 1:length(ingredients)) {
@@ -116,5 +118,3 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
-
-
