@@ -1,8 +1,27 @@
 library(shiny)
 library(tidyverse)
+library(shinybusy)
+library(DT)
+
+css <- "
+.wrap {
+  white-space: wrap;
+  overflow: scroll;
+  }
+table {
+  width: 300%;
+  overflow-x: scroll;
+}
+td:nth-child(3) {
+  column-width: 10ch;
+}
+"
 
 ui <- fluidPage(
 
+  tags$head(
+    tags$style(HTML(css))
+    
   # App title ----
   titlePanel("New York Times Cooking Recipes"),
 
@@ -12,30 +31,56 @@ ui <- fluidPage(
     textInput("ingredients", "Please enter ingredients (seperate each using comma)"),
   ),
 
-  # Main panel for displaying outputs ----
   mainPanel(
-    # Output: list of ingredients
-    verbatimTextOutput("ingredients"),
-    # Output: Table for the recipe dataset ----
-    tableOutput("table")
-  )
+
+    # input field
+    textInput("input", label = "Please enter ingredients (seperate each using comma)"),
+
+    # submit button
+    actionButton("submit", label = "Submit"),
+
+    # Somewhere in UI
+    add_busy_gif(src = "https://jeroen.github.io/images/banana.gif", height = 70, width = 70),
+
+    # display text output
+    textOutput("text"),
+
+    #display table output
+    DTOutput("table", width = "150%")
+    )
 )
 
-server <- function(input, output, session){
-  output$ingredients <- renderText({
-    ingredients <- tolower(input$ingredients)
-    # Print out the entered ingredients
-    cat("You entered:", paste(ingredients, collapse = ", "),"\n")
-    cat("Please wait while the recipes are loading...")
-    return(ingredients)
-    })
+server <- function(input, output) {
 
-  output$table <- renderTable({
-    # call matching algorithm to get output
+  # reactive expression
+  text_reactive <- eventReactive(input$submit, {
+    input$input
+  })
+
+  # text output
+  output$text <- renderText({
+    text_reactive()
+  })
+
+  # call matching algorithm to get output
+  output$table <- renderDT({
+    ingredients <- stringr::str_split(string = text_reactive(), pattern = ",")
+    ingredients <- unlist(ingredients)
+    ingredients <- tolower(ingredients)
     recipes <- NewYorkTimesCooking::match_item(ingredients)
-    return(recipes)
+    recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
+    column_defs <- list(
+      list(className = "wrap", targets = "_all"),
+      list(targets = c("link"),
+           render = JS("function(data, type, row, meta) {
+              return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[8] +'</a>';
+            }"))
+    )
+    datatable(recipes,
+              options = list(
+                columnDefs = column_defs
+              ))
   })
 }
-
 
 shinyApp(ui = ui, server = server)
