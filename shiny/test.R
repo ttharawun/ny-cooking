@@ -107,9 +107,9 @@ server <- function(input, output) {
                     columnDefs = column_defs
                   ))
       }
-      # else{
-      #   showNotification("Sorry there is no recipe that matches your input list.")
-      # }
+      else{
+        showNotification("Sorry there is no recipe that matches your input list.")
+      }
     }
   })
 }
