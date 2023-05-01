@@ -98,12 +98,16 @@ server <- function(input, output) {
         showNotification("Please wait while the recipes are loading...")
         recipes <- NewYorkTimesCooking::match_item(ingredients)
         recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
+        recipes$instructions <- gsub(pattern = "Step", replacement = "\nStep", recipes$instructions)
         column_defs <- list(
           list(className = "wrap", targets = "_all"),
           list(targets = c("link"),
                render = JS("function(data, type, row, meta) {
               return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[8] +'</a>';
-            }"))
+            }")),
+          list(
+            targets = "instructions",
+            render = JS("function(data,type,row,meta) {return data.replace(/\\n/g,'<br>');}"))
         )
         datatable(as.data.frame(recipes),
                   options = list(
@@ -119,13 +123,16 @@ server <- function(input, output) {
       showNotification(paste0("You entered: ", paste(ingredients, collapse = ", "),"\n"))
       showNotification("Please wait while the recipes are loading...")
       recipes <- NewYorkTimesCooking::match_item(ingredients)
-      recipes$instructions <- stringr::str_replace_all(recipes$instructions, pattern = "Step", replacement = regex("\n Step"))
+      recipes$instructions <- gsub(pattern = "Step", replacement = "\nStep", recipes$instructions)
       column_defs <- list(
         list(className = "wrap", targets = "_all"),
         list(targets = c("link"),
              render = JS("function(data, type, row, meta) {
               return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[8] +'</a>';
-            }"))
+            }")),
+        list(
+          targets = "instructions",
+          render = JS("function(data,type,row,meta) {return data.replace(/\\n/g,'<br>');}"))
       )
       datatable(as.data.frame(recipes),
                 options = list(
