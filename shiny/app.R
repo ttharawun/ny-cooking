@@ -123,6 +123,7 @@ server <- function(input, output) {
       showNotification(paste0("You entered: ", paste(ingredients, collapse = ", "),"\n"))
       showNotification("Please wait while the recipes are loading...")
       recipes <- NewYorkTimesCooking::match_item(ingredients)
+      recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
       recipes$instructions <- gsub(pattern = "Step", replacement = "\nStep", recipes$instructions)
       column_defs <- list(
         list(className = "wrap", targets = "_all"),
