@@ -15,3 +15,6 @@ a 10-row dataframe of recipes based on user input
 \description{
 get ingredient list from user and return matched recipes as output
 }
+\examples{
+get_ingredients("egg", "sugar", "milk")
+}
