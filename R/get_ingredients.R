@@ -7,7 +7,7 @@
 #'
 #' @examples get_ingredients("egg", "sugar", "milk")
 get_ingredients<-function(...){
-  ingredients <- unlist(list(...))
+  ingredients <- c(...)
 
   if(length(ingredients) == 0) {
     #create ingredients vector
@@ -23,7 +23,7 @@ get_ingredients<-function(...){
       word <- paste0("\\b",ingredients[i], "\\b")
 
       if(stringr::str_length(ingredients[i]) < 3){
-        message("Your word is too short. Please enter full word")
+        message("Your word is too short. Please enter full word.")
         indeces[i] <- i
       }
 
@@ -59,6 +59,7 @@ get_ingredients<-function(...){
         message("Please wait while the recipes are loading...")
         # call matching algorithm to get output
         recipes <- NewYorkTimesCooking::match_item(ingredients)
+        recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
         return(recipes)
       }
       else{
@@ -72,16 +73,58 @@ get_ingredients<-function(...){
       message("Please wait while the recipes are loading...")
       # call matching algorithm to get output
       recipes <- NewYorkTimesCooking::match_item(ingredients)
+      recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
       return(recipes)
     }
   }
   else{
-    ingredients <- tolower(ingredients)
-    # Print out the entered ingredients
-    message("You entered: ", paste(ingredients, collapse = ", "),"\n")
-    message("Please wait while the recipes are loading...")
-    # call matching algorithm to get output
-    recipes <- NewYorkTimesCooking::match_item(ingredients)
-    return(recipes)
+    ingredients <- stringr::str_split(string = ingredients, pattern = ",")
+    ingredients <- unlist(ingredients)
+    indeces <- vector()
+
+    for (i in 1:length(ingredients)) {
+      if(stringr::str_length(ingredients[i]) < 3){
+        message(paste0(ingredients[i], " is too short. Please enter full word."))
+        indeces[i] <- i
+      }
+      if(stringr::str_length(ingredients[i]) >= 3) {
+        if(hunspell::hunspell_check(tolower(ingredients[i]))) {
+          if (any(grepl(tolower(ingredients[i]), tolower(NYTrecipe$ingredients)))) {
+            message(paste0(ingredients[i], " was found in the list of ingredients."))
+            indeces[i] <- 0
+          }
+          else {
+            message(paste0(ingredients[i], " was NOT found in the list of ingredients."))
+            indeces[i] <- i
+          }
+        }
+        else {
+          message(paste0(ingredients[i], " is not correct. Please check your spelling."))
+          indeces[i] <- i
+        }
+      }
+    }
+
+    if(sum(indeces) > 0){
+      ingredients <- ingredients[-indeces]
+      if (length(ingredients) > 0){
+        message(paste0("You entered: ", paste(ingredients, collapse = ", "),"\n"))
+        message("Please wait while the recipes are loading...")
+        recipes <- NewYorkTimesCooking::match_item(ingredients)
+        recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
+        return(recipes)
+      }
+      else{
+        warning("Sorry there is no recipe that matches your input list.")
+      }
+    }
+    else{
+      ingredients <- tolower(ingredients)
+      message(paste0("You entered: ", paste(ingredients, collapse = ", "),"\n"))
+      message("Please wait while the recipes are loading...")
+      recipes <- NewYorkTimesCooking::match_item(ingredients)
+      recipes$tag <- stringr::str_replace_all(recipes$tag, pattern = ",", replacement = ", ")
+      return(recipes)
+    }
   }
 }
