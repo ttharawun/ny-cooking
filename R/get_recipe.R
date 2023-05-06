@@ -13,7 +13,6 @@ get_recipe<-function(url){
         return(FALSE)
         stop()
       }
-
       #store urls info into page
       page <- rvest::read_html(url)
 
