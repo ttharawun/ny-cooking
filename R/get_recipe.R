@@ -9,10 +9,10 @@
 get_recipe<-function(url){
       # check if url is from nytimes
       if(grepl("nytimes",url)==FALSE){
-        print("Please input a recipe from NY Times Cooking website.")
+        warning("Please input a recipe from NY Times Cooking website.")
         return(FALSE)
-        stop()
       }
+
       #store urls info into page
       page <- rvest::read_html(url)
 
