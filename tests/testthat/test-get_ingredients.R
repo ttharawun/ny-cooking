@@ -2,6 +2,10 @@ testthat::test_that("print messages if all correct ingredients", {
   testthat::expect_message(get_ingredients(c("milk", "egg", "water")))
 })
 
+testthat::test_that("return search results dataframe if all correct ingredients", {
+  testthat::expect_visible(get_ingredients(c("milk", "egg", "water")))
+})
+
 testthat::test_that("print messages if some correct ingredients", {
   testthat::expect_message(get_ingredients(c("milk", "eggggg", "water")))
 })

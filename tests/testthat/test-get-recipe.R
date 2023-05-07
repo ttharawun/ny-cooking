@@ -1,14 +1,9 @@
-testthat::test_that("check if input url is from nytcooking", {
-  test_url = "www.google.com"
-  output = get_recipe(test_url)
-  testthat::expect_false(output)
+testthat::test_that("check if nytcooking url works and returns recipe object", {
+  testthat::expect_visible(get_recipe("https://cooking.nytimes.com/recipes/1024156-toasted-sesame-and-scallion-waffles"))
 })
 
-
-testthat::test_that("check if return message if input url is not from NYTcooking", {
-  test_url = "www.google.com"
-  output = get_recipe(test_url)
-  testthat::expect_message(output)
-}
+testthat::test_that("check if input url is from nytcooking", {
+  testthat::expect_warning(get_recipe("www.google.com"))
+})
 
 
