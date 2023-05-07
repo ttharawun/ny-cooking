@@ -9,6 +9,6 @@ testthat::test_that("check if return message if input url is not from NYTcooking
   test_url = "www.google.com"
   output = get_recipe(test_url)
   testthat::expect_message(output)
-})
+}
 
 
