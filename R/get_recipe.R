@@ -7,10 +7,12 @@
 #'
 #' @examples get_recipe("https://cooking.nytimes.com/recipes/1022411-cucumber-avocado-salad")
 get_recipe<-function(url){
+      print(paste0("The url you input is: ", url))
       # check if url is from nytimes
       if(grepl("nytimes",url)==FALSE){
-        warning("Please input a recipe from NY Times Cooking website.")
-        return(FALSE)
+        a<-warning("Please input a recipe from NY Times Cooking website.")
+        b<-FALSE
+        return(list(a,b))
       }
 
       #store urls info into page
