@@ -7,6 +7,16 @@
 #'
 #' @examples get_recipe("https://cooking.nytimes.com/recipes/1022411-cucumber-avocado-salad")
 get_recipe<-function(url){
+      message(paste0("The url you input is: ", url))
+
+      # check if url is from nytimes
+      if(!grepl("nytimes",url)){
+        a<-warning("Please input a recipe from NY Times Cooking website.")
+        b<-FALSE
+        output<-list(a)
+        return(output)
+      }
+
       #store urls info into page
       page <- rvest::read_html(url)
 
