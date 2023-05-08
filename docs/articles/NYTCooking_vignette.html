@@ -8,8 +8,8 @@
 <meta name="description" content="NewYorkTimesCooking">
 <title>New York Times Cooking • NewYorkTimesCooking</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="New York Times Cooking">
 <meta property="og:description" content="NewYorkTimesCooking">
@@ -100,8 +100,8 @@ from <a href="https://cooking.nytimes.com/" class="external-link">New York Times
 It contains 9,099 NYTCooking recipes and 9 aspects of the recipes.</p>
 <table class="table">
 <colgroup>
-<col width="40%">
-<col width="59%">
+<col width="41%">
+<col width="58%">
 </colgroup>
 <thead><tr class="header">
 <th>variable</th>
@@ -144,7 +144,7 @@ access) 🕸</td>
 </tr>
 <tr class="odd">
 <td>time_minute</td>
-<td>cooking time for the recipe (in minutes, does not incldue any notes)
+<td>cooking time for the recipe (in minutes, does not include any notes)
 ⏰</td>
 </tr>
 </tbody>
@@ -153,9 +153,9 @@ access) 🕸</td>
 <table class="table">
 <colgroup>
 <col width="1%">
-<col width="15%">
+<col width="16%">
 <col width="1%">
-<col width="81%">
+<col width="80%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">title</th>
@@ -165,9 +165,9 @@ access) 🕸</td>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">Stuffed Peppers</td>
-<td align="left">American,Casseroles,Bell Pepper,Fennel,Garlic,Ground
-Beef,Onion,Oregano,Parmesan,Red Pepper
-Flake,Rice,Tomato,Dinner,Weekday,Main Course</td>
+<td align="left">American, Casseroles, Bell Pepper, Fennel, Garlic,
+Ground Beef, Onion, Oregano, Parmesan, Red Pepper Flake, Rice, Tomato,
+Dinner, Weekday, Main Course</td>
 <td align="left">1 1/4 hours</td>
 <td align="left">4 large red, orange or yellow bell peppers 2
 tablespoons olive oil 1 cup finely chopped fennel bulb (about 1/2 a
@@ -186,15 +186,34 @@ mozzarella, provolone or other semifirm cheese</td>
 <div class="section level2">
 <h2 id="functions-and-outputs">Functions and Outputs<a class="anchor" aria-label="anchor" href="#functions-and-outputs"></a>
 </h2>
+<div class="section level4">
+<h4 id="get_ingredients">get_ingredients()<a class="anchor" aria-label="anchor" href="#get_ingredients"></a>
+</h4>
 <p>To find recipes, the user can start by calling the
 <code><a href="../reference/get_ingredients.html">get_ingredients()</a></code> function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">NewYorkTimesCooking</span><span class="fu">::</span><span class="fu"><a href="../reference/get_ingredients.html">get_ingredients</a></span><span class="op">(</span><span class="st">"egg"</span>, <span class="st">"sugar"</span>, <span class="st">"milk"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">recipes</span> <span class="op">&lt;-</span> <span class="fu">NewYorkTimesCooking</span><span class="fu">::</span><span class="fu"><a href="../reference/get_ingredients.html">get_ingredients</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"egg"</span>, <span class="st">"sugar"</span>, <span class="st">"milk"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; egg was found in the list of ingredients.</span></span>
+<span><span class="co">#&gt; sugar was found in the list of ingredients.</span></span>
+<span><span class="co">#&gt; milk was found in the list of ingredients.</span></span>
+<span><span class="co">#&gt; You entered: egg, sugar, milk</span></span>
+<span><span class="co">#&gt; Please wait while the recipes are loading...</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">recipes</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 10</span></span>
+<span><span class="co">#&gt; Columns: 8</span></span>
+<span><span class="co">#&gt; $ title        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Perfect Buttermilk Pancakes", "Waffles", "Pasta Primaver…</span></span>
+<span><span class="co">#&gt; $ tag          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pancakes, Buttermilk, Cast Iron, Breakfast, Easy, Quick"…</span></span>
+<span><span class="co">#&gt; $ serving      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "10 minutes", "35 minutes", "20 minutes", "1 hour, plus c…</span></span>
+<span><span class="co">#&gt; $ ingredients  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2 cups all-purpose flour 3 tablespoons sugar 1 1/2 teasp…</span></span>
+<span><span class="co">#&gt; $ rating       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "8792 user ratings", "6279 user ratings", "5355 user rati…</span></span>
+<span><span class="co">#&gt; $ time         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "10 minutes", "35 minutes", "20 minutes", "1 hour, plus c…</span></span>
+<span><span class="co">#&gt; $ instructions <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Step 1 Heat the oven to 325 degrees. Whisk flour, sugar,…</span></span>
+<span><span class="co">#&gt; $ link         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://cooking.nytimes.com/recipes/1018180-perfect-butt…</span></span></code></pre></div>
 <p>The user will be prompted to enter ingredient 1 with the text:
-<code>Enter ingredient 1:</code>.</p>
-<p>If the user inputs an ingredient that is found in the recipes data
-set, such as <code>egg</code> or <code>EGG</code> (the input is not case
-sensitive) then the program will print a confirmation message:
+<code>Enter ingredient 1:</code>. If the user inputs an ingredient that
+is found in the recipes data set, such as <code>egg</code> or
+<code>EGG</code> (the input is not case sensitive) then the program will
+print a confirmation message:
 <code>egg was found in the list of ingredients.</code> The ingredient
 will also be stored in a vector.</p>
 <p>If the user inputs an ingredient that is NOT found in the recipes
@@ -216,12 +235,37 @@ the user inputs <code>N</code> to the prompt
 <code>Would you like to enter an ingredient (Y/N)</code> and the program
 will print out a list of the ingredients that the user has successfully
 inputted. For example, if the user inputted <code>egg</code>,
-<code>sugar</code>, and <code>milk</code>, the message will be:</p>
-<p><code>You entered: egg, sugar, milk</code></p>
+<code>sugar</code>, and <code>milk</code>, the message will be:
+<code>You entered: egg, sugar, milk</code></p>
 <p>The program can then use these inputted ingredients to search for
 recipes with the same ingredients, sort out based on the number of user
 reviews on the New York Times Cooking website, and recommend top 10
 recipes to the user.</p>
+</div>
+<div class="section level4">
+<h4 id="get_recipe">get_recipe()<a class="anchor" aria-label="anchor" href="#get_recipe"></a>
+</h4>
+<p>If you found some updated recipes on New York Times cooking, feel
+free to use the get_recipe() function to web-scrape the recipe from the
+website by yourself! All arguments you need is just the link to the
+specific recipe you want. The function will generate a one-row dataframe
+that include the recipe’s title, tag, serving size, ingredients, rating,
+time needed, instructions, and the link itself. Bon Appetite!</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">recipe</span><span class="op">&lt;-</span><span class="fu">NewYorkTimesCooking</span><span class="fu">::</span><span class="fu"><a href="../reference/get_recipe.html">get_recipe</a></span><span class="op">(</span><span class="st">"https://cooking.nytimes.com/recipes/1020260-olive-oil-roasted-chicken-with-caramelized-carrots?action=click&amp;module=video%20carousel&amp;region=video%20carousel&amp;pgType=homepage&amp;rank=2"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The url you input is: https://cooking.nytimes.com/recipes/1020260-olive-oil-roasted-chicken-with-caramelized-carrots?action=click&amp;module=video%20carousel&amp;region=video%20carousel&amp;pgType=homepage&amp;rank=2</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">recipe</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 1</span></span>
+<span><span class="co">#&gt; Columns: 8</span></span>
+<span><span class="co">#&gt; $ title        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Olive Oil-Roasted Chicken With Caramelized Carrots"</span></span>
+<span><span class="co">#&gt; $ tag          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Poultry,Carrot,Chicken Leg,Lemon,Olive Oil,Dinner,Main C…</span></span>
+<span><span class="co">#&gt; $ serving      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Yield: 4 servings"</span></span>
+<span><span class="co">#&gt; $ ingredients  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2\npounds whole chicken legs, or bone-in, skin-on drumst…</span></span>
+<span><span class="co">#&gt; $ rating       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1812 user ratings"</span></span>
+<span><span class="co">#&gt; $ time         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA</span></span>
+<span><span class="co">#&gt; $ instructions <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Step 1\nStep 2\nStep 3\nStep 4\nStep 5"</span></span>
+<span><span class="co">#&gt; $ link         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://cooking.nytimes.com/recipes/1020260-olive-oil-ro…</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
