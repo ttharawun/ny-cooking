@@ -1,11 +1,16 @@
 #use get_recipe to scrape from NYT Cooking main page ----
 url <- "https://cooking.nytimes.com/search"
-page <- read_html(url)
+page <- rvest::read_html(url)
 
 #scrape recipe link
 partial_page_links <- page |>
-  html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
-  html_attr('href')
+  rvest::html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
+  rvest::html_attr('href')
+
+#scrape number of pages
+page_number <- page |>
+  rvest::html_nodes("div.pagination_pagesGroup__RP_r1:nth-child(2) span.button_buttonText__T28x2") |>
+  rvest::html_attr('href')
 
 #create vector of possible columns
 columns = c("title", "tag", "serving", "ingredients", "rating", "time", "instructions", "link")
@@ -17,12 +22,12 @@ tryCatch({
   for(i in 1:209) #iteration for every page with recipes
   {
     url <- paste0("https://cooking.nytimes.com/search?page=",i) #get full url to search each page
-    page <- read_html(url) #input the url as html
+    page <- rvest::read_html(url) #input the url as html
 
     #scrape recipe link
     page_links <- page |>
-      html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
-      html_attr('href')
+      rvest::html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
+      rvest::html_attr('href')
     Sys.sleep(10) #pause between each scraping
 
     #save into vector

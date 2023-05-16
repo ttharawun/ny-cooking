@@ -40,7 +40,7 @@ NYTCooking is the acronym of [the New York Times Cooking](https://cooking.nytime
 
 #### Sources
 
-Our recipes are from [the New York Times] (https://cooking.nytimes.com/). They were collected by scraping the website using `get_recipe.R` script in the `R` folder.
+Our recipes are from [the New York Times](https://cooking.nytimes.com/). They were collected by scraping the website using `get_recipe.R` script in the `R` folder.
 
 The source was last accessed on April 15, 2023.
 
@@ -50,7 +50,7 @@ Data was cleaned and processed accordingly to our project's requirements.
 
 ## Data Collection and Update Process
 
-The data collection process is not automated (i.e., no new recipe is added even if it might be available on the source website). However, to access updated data, one must simply run the scripts in the `get_recipe.R` script in the `R` folder.
+In our project, we did not automate the data collection process (i.e., no new recipe is added even if it might be available on the source website). If you want to get new recipes, you can do so by simply running the scripts in the `get_recipe.R` script in the `R` folder.
 
 ## Architecture and Where to Start
 

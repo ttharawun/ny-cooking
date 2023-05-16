@@ -1,8 +1,8 @@
 #' scrape the details of each recipe from NYTCooking website
 #'
-#' @param url a url linking to a recipe from Nytimes cooking website
+#' @param url a URL to a recipe from NYTCooking website
 #'
-#' @return
+#' @return recipe details of the recipe from the URL
 #' @export
 #'
 #' @examples get_recipe("https://cooking.nytimes.com/recipes/1022411-cucumber-avocado-salad")
@@ -32,7 +32,7 @@ get_recipe<-function(url){
         recipe_tags <- page |>
           rvest::html_nodes(".tags_tagListItem__EAD5e .link_default__XRQhR") |>
           rvest::html_text()
-        recipe_tags <-paste0(recipe_tags, collapse = ",")
+        recipe_tags <-paste0(recipe_tags, collapse = ", ")
         recipe_tags_length <- length(recipe_tags)
         if (is.null(recipe_tags) | recipe_tags_length == 0){
           recipe_tags <- NA
@@ -51,7 +51,7 @@ get_recipe<-function(url){
         recipe_ingredients <- page |>
           rvest::html_nodes(".ingredient_ingredient__lq70t span , .ingredientgroup_name__IZMKB") |>
           rvest::html_text()
-        recipe_ingredients <- paste0(recipe_ingredients, collapse = "\n")
+        recipe_ingredients <- paste0(recipe_ingredients, collapse = " ")
         recipe_ingredients_length <- length(recipe_ingredients)
         if (is.null(recipe_ingredients) | recipe_ingredients_length == 0){
           recipe_ingredients <- NA
@@ -61,7 +61,7 @@ get_recipe<-function(url){
         recipe_instructions<- page |>
           rvest::html_nodes(".editorialtext_editorialText__TGWwj , .preparation_stepNumber__cPykF") |>
           rvest::html_text()
-        recipe_instructions <- paste0(recipe_instructions, collapse = "\n")
+        recipe_instructions <- paste0(recipe_instructions, collapse = " ")
         recipe_instructions_length <- length(recipe_instructions)
         if (is.null(recipe_instructions) | recipe_instructions_length == 0){
           recipe_instructions <- NA
@@ -100,7 +100,8 @@ get_recipe<-function(url){
           tag = recipe_tags,
           serving = recipe_yield,
           ingredients = recipe_ingredients,
-          rating = recipe_comment_num,
+          rating = recipe_rating,
+          comment = recipe_comment_num,
           time = recipe_time,
           instructions = recipe_instructions,
           link = url
