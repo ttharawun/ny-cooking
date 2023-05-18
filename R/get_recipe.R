@@ -59,7 +59,7 @@ get_recipe<-function(url){
 
         #scrape recipe instructions
         recipe_instructions<- page |>
-          rvest::html_nodes(".editorialtext_editorialText__TGWwj , .preparation_stepNumber__cPykF") |>
+          rvest::html_nodes(".preparation_step__3MQzD, .preparation_steps__J850_, .editorialtext_editorialText__VTRYy") |>
           rvest::html_text()
         recipe_instructions <- paste0(recipe_instructions, collapse = " ")
         recipe_instructions_length <- length(recipe_instructions)
@@ -78,7 +78,7 @@ get_recipe<-function(url){
 
         #scrape recipe preparation time
         recipe_time <- page |>
-          rvest::html_node(".interfacecaptiontext_interfaceCaptionText__ymi7T:nth-child(2)") |>
+          rvest::html_node(".interfacecaptiontext_interfaceCaptionText__BrAqh") |>
           rvest::html_text()
         recipe_time_length <- length(recipe_time)
         if (is.null(recipe_time) | recipe_time_length == 0){
