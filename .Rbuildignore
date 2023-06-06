@@ -6,4 +6,8 @@
 ^pkgdown$
 ^LICENSE.md
 ^scrap
+^scrap\web-scrape.R
 ^shiny
+^shiny\app.R
+^cran-comments\.md$
+^CRAN-SUBMISSION$
