@@ -41,7 +41,7 @@ NYTCooking is the acronym of [the New York Times Cooking](https://cooking.nytime
 
 Our recipes are from [the New York Times](https://cooking.nytimes.com/). They were collected by scraping the website using `get_recipe.R` script in the `R` folder.
 
-The source was last accessed on April 15, 2023.
+The source was last accessed on April 30th, 2023.
 
 #### Data cleaning
 
