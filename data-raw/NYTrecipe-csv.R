@@ -26,3 +26,5 @@ NYTrecipe$serving <- textclean::replace_non_ascii(NYTrecipe$serving, replacement
 NYTrecipe$instructions <- updated_instruction
 
 usethis::use_data(NYTrecipe, overwrite = TRUE)
+
+tools::resaveRdaFiles("data/NYTrecipe.rda",compress="xz")

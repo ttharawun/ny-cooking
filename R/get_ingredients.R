@@ -7,6 +7,7 @@
 #'
 #' @examples get_ingredients("egg", "sugar", "milk")
 get_ingredients<-function(...){
+
   ingredients <- c(...) #create dummy vector
 
   #check length of ingredients (i.e., if items are given or should be taken from prompt)

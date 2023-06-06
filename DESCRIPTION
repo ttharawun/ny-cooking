@@ -26,4 +26,5 @@ Imports:
     rvest, 
     stringr
 LazyData: true
+LazyDataCompression:xz
 Config/testthat/edition: 3

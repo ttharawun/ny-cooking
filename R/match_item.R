@@ -7,6 +7,7 @@
 #'
 #' @examples test<-match_item("apple","egg","sugar","vanilla")
 match_item <- function(...) {
+
   # Convert all input ingredients to lowercase
   input_ingredients <- tolower(unlist(list(...)))
 

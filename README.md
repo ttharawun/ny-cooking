@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/dyrs3KiQ)
 ![hex-NYT Cooking](https://user-images.githubusercontent.com/62436248/234152754-277d9cbd-9ea4-4ce6-aa9d-f3d931805104.png)
 
 # New York Times Cooking Recipes
@@ -82,8 +81,8 @@ SOFTWARE.
 
 ## How to Provide Feedback
 
-Questions, bug reports, and feature requests can be submitted to this repo's [issue queue](https://github.com/Adv-R-Programming/final-project-nycooking/issues).
+Questions, bug reports, and feature requests can be submitted to this repo's [issue queue](https://github.com/ttharawun/ny-cooking/issues).
 
 ## Have Questions?
 
-If you have questions please submit them in this repo's [issue queue](https://github.com/Adv-R-Programming/final-project-nycooking/issues) or contact Tint (ttharawun@smith.edu) 
+If you have questions please submit them in this repo's [issue queue](https://github.com/ttharawun/ny-cooking/issues) or contact Tint (ttharawun@smith.edu) 
