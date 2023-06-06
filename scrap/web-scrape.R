@@ -7,13 +7,8 @@ partial_page_links <- page |>
   rvest::html_nodes("li div.recipecard_recipeCard__eY6sC article.atoms_card__sPaoj a.link_link__ov7e4") |>
   rvest::html_attr('href')
 
-#scrape number of pages
-page_number <- page |>
-  rvest::html_nodes("div.pagination_pagesGroup__RP_r1:nth-child(2) span.button_buttonText__T28x2") |>
-  rvest::html_attr('href')
-
 #create vector of possible columns
-columns = c("title", "tag", "serving", "ingredients", "rating", "time", "instructions", "link")
+columns = c("title", "tag", "serving", "ingredients", "rating", "comment", "time", "instructions", "link")
 
 #create dummy vector
 partial_page_links <- c()
@@ -42,11 +37,14 @@ error = function(e){ #if an error occurred print warning statement
 #turn scraped partial links into working links
 links <- paste0("https://cooking.nytimes.com", partial_page_links)
 
+#create new dataframe
+recipes <- data.frame()
+
 #scrape details of the recipe for each link
 tryCatch({
-  for(i in 1:9099){ #iteration for each link
+  for(i in 1:length(links)){ #iteration for each link
     link <- links[i]
-    recipes[link, columns] <- get_recipe(link) #use get_recipe function to get the details
+    recipes_new[link, columns] <- NewYorkTimesCooking::get_recipe(link) #use get_recipe function to get the details
     Sys.sleep(10) #pause between each scraping
     print(link) #print each link
     length_link <- length(link)
@@ -65,4 +63,4 @@ error = function(e){ #if an error occurred print warning statement
 rownames(recipes) <- 1:length(links)
 
 #export results as csv
-write.csv(recipes, file = "./data/recipes.csv", row.names = FALSE)
+write.csv(recipes, file = "./data-raw/recipes.csv", row.names = FALSE)

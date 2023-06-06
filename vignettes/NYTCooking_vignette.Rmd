@@ -36,11 +36,11 @@ The **NYTrecipe** dataset in this package was extracted from [New York Times Coo
 | tags         | recipe tags 🏷                                                                 |
 | serving      | number of people that the recipe portion serves 👨‍👩‍👧‍👦                            |
 | ingredients  | recipe ingredient details 🌽🍗🥕                                              |
-| rating       | number of user ratings the recipe received on NYTCooking ⭐️                   |
+| rating       | number of stars the recipe received on NYTCooking ⭐️                          |
+| comment      | number of user ratings the recipe received on NYTCooking 👨‍👩                   |
 | time         | cooking time for the recipe (in hours and minutes with notes) ⏰📝            |
 | instructions | instruction steps for the recipe 📝                                           |
 | link         | link to the web version of the recipe (requires NYT subscription to access) 🕸 |
-| time_minute  | cooking time for the recipe (in minutes, does not include any notes) ⏰       |
 
 Example snapshot of the dataset (note. not all columns included)
 

@@ -7,8 +7,9 @@
 #'
 #' @examples get_ingredients("egg", "sugar", "milk")
 get_ingredients<-function(...){
-  ingredients <- c(...)
+  ingredients <- c(...) #create dummy vector
 
+  #check length of ingredients (i.e., if items are given or should be taken from prompt)
   if(length(ingredients) == 0) {
     #create ingredients vector
     ingredients <- vector(mode = "character")
@@ -16,17 +17,21 @@ get_ingredients<-function(...){
     userchoice = "Y"
     i = 0
 
+    #run while user wants to add more items
     while(userchoice == "Y"){
       i = i + 1
 
+      #create boundry for word
       ingredients[i] <- readline(prompt = paste0("Enter ingredient ", i, ": "))
       word <- paste0("\\b",ingredients[i], "\\b")
 
+      #check length of word
       if(stringr::str_length(ingredients[i]) < 3){
         message("Your word is too short. Please enter full word.")
         indeces[i] <- i
       }
 
+      #check spelling
       if(stringr::str_length(ingredients[i]) >= 3) {
         if(hunspell::hunspell_check(ingredients[i])) {
           if (any(grepl(tolower(word), tolower(NYTrecipe$ingredients)))) {
@@ -44,12 +49,14 @@ get_ingredients<-function(...){
         }
       }
 
+      #prompt to ask user
       userchoice <- readline(prompt = "Would you like to input a new ingredient? (Y/N)")
       if (userchoice == "Y") {next}
       if (userchoice == "N") {break}
       else {userchoice <- readline(prompt = "You typed something else than Y or N. Would you like to input a new ingredient? (Y/N)")}
     }
 
+    #if there is word with incorrect spelling
     if(sum(indeces) > 0){
       ingredients <- tolower(ingredients)
       ingredients <- ingredients[-indeces]
@@ -77,6 +84,7 @@ get_ingredients<-function(...){
       return(recipes)
     }
   }
+  #for given items
   else{
     ingredients <- stringr::str_split(string = ingredients, pattern = ",")
     ingredients <- unlist(ingredients)
@@ -105,6 +113,7 @@ get_ingredients<-function(...){
       }
     }
 
+    #if words with wrong spelling are in the list
     if(sum(indeces) > 0){
       ingredients <- ingredients[-indeces]
       if (length(ingredients) > 0){

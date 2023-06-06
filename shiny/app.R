@@ -31,7 +31,7 @@ ui <- fluidPage(
   mainPanel(
 
     # input field
-    textInput("input", label = "Please enter ingredients (separate each using comma)"),
+    textInput("input", label = "Enter ingredients (separate by comma)"),
 
     # submit button
     actionButton("submit", label = "Submit"),
@@ -103,7 +103,7 @@ server <- function(input, output) {
           list(className = "wrap", targets = "_all"),
           list(targets = c("link"),
                render = JS("function(data, type, row, meta) {
-              return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[8] +'</a>';
+              return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[9] +'</a>';
             }")),
           list(
             targets = "instructions",
@@ -129,7 +129,7 @@ server <- function(input, output) {
         list(className = "wrap", targets = "_all"),
         list(targets = c("link"),
              render = JS("function(data, type, row, meta) {
-              return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[8] +'</a>';
+              return '<a href=\"'+ data +'\" target=\"_blank\">'+ row[9] +'</a>';
             }")),
         list(
           targets = "instructions",

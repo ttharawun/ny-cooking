@@ -20,23 +20,26 @@ match_item <- function(...) {
       dplyr::mutate(!!ingredient := stringr::str_detect(ingredients, ingredient))
   }
 
-  # Create dummy vector for rating
-  rating <- vector("character", nrow(data_selection))
+  # Format instruction
+  instruction <- data_selection$instructions
+  updated_instruction <- gsub("\\bStep", "\nStep", instruction, perl = TRUE)
+  data_selection$instructions <- updated_instruction
 
-  # Split rating into user_number and date
+  # Create dummy vector for comments
+  comment <- vector("character", nrow(data_selection))
+
+  # Split rating into user_number
   for (i in 1:nrow(data_selection)) {
-    rating[i] <- stringr::str_split(data_selection[i, "rating"], pattern = "(?<=\\d)\\s")[[1]][1]
-    data_selection[i, "user_number"] <- readr::parse_number(rating[i])
+    comment[i] <- stringr::str_split(data_selection[i, "comment"], pattern = "(?<=\\d)\\s")[[1]][1]
+    data_selection[i, "user_number"] <- readr::parse_number(comment[i])
   }
 
   # Filter by input ingredients and arrange by user_number
   results <- data_selection |>
     dplyr::filter_at(dplyr::vars(input_ingredients), dplyr::all_vars(.)) |>
-    dplyr::arrange(desc(user_number)) |>
-    dplyr::select(title, tag, serving, ingredients, rating, time, instructions, link) |>
+    dplyr::arrange(dplyr::desc(user_number) & dplyr::desc(rating)) |>
+    dplyr::select(title, tag, serving, ingredients, rating, comment, time, instructions, link) |>
     head(10)
 
   return(results)
 }
-
-
