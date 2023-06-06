@@ -26,5 +26,6 @@ Imports:
     rvest, 
     stringr
 LazyData: true
-LazyDataCompression:xz
+LazyDataCompression: xz
 Config/testthat/edition: 3
+URL: https://ttharawun.github.io/ny-cooking/
